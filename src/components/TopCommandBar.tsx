@@ -23,6 +23,7 @@ import {
   Radio,
   SlidersHorizontal,
   PanelLeft,
+  Compass,
 } from "lucide-react";
 import { ALL_CHAPTERS, TOTAL_CHAPTERS_COUNT } from "@/data";
 import { useStudyStore, ViewMode, AcademicStyle } from "@/store/useStudyStore";
@@ -30,7 +31,13 @@ import { ChromaticButton } from "./chromatic-button";
 import { KeyboardShortcutsModal } from "./KeyboardShortcutsModal";
 import { OrwellAppLogo } from "./OrwellAppLogo";
 
-export const TopCommandBar: React.FC = React.memo(() => {
+interface TopCommandBarProps {
+  onOpenWalkthrough?: () => void;
+}
+
+export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
+  onOpenWalkthrough,
+}) => {
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
   const [isMobileOptionsOpen, setIsMobileOptionsOpen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
@@ -397,6 +404,18 @@ export const TopCommandBar: React.FC = React.memo(() => {
               </button>
             )}
 
+            {/* Interactive App Tour / Walkthrough */}
+            {onOpenWalkthrough && (
+              <button
+                onClick={onOpenWalkthrough}
+                title="Interactive App Walkthrough & Guide (Tour)"
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border-cyan-400/35 shadow-sm soft-button shrink-0"
+              >
+                <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                <span className="hidden xl:inline text-[11px]">Tour</span>
+              </button>
+            )}
+
             {/* Native Shortcuts Cheatsheet Guide (?) */}
             <button
               onClick={() => setIsShortcutsOpen((prev) => !prev)}
@@ -477,6 +496,7 @@ export const TopCommandBar: React.FC = React.memo(() => {
           onClose={() => setIsShortcutsOpen(false)}
           appName="Orwell 1984 Codex"
           accentColor="#0ea5e9"
+          onOpenTour={onOpenWalkthrough}
         />
       </header>
 
