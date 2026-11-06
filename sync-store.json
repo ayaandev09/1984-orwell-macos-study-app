@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "timestamp": 1793567399999,
+  "clientId": "test-client",
+  "payload": {
+    "activeChapterId": "p1-c1",
+    "viewMode": "focus",
+    "studyGoal": "revise",
+    "academicStyle": "newsreader",
+    "speedReadMode": false,
+    "completedChapters": {
+      "p1-c1": true
+    },
+    "completedSubSections": {},
+    "bookmarkedQuotes": {},
+    "chapterNotes": {},
+    "flashcardMastery": {},
+    "quizAnswers": {}
+  }
+}

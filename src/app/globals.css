@@ -1,0 +1,724 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--active-academic-font);
+  --font-sans: var(--active-academic-sans);
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --bg-obsidian: #05070f;
+  --bg-midnight: #090d1c;
+  --glass-surface: rgba(255, 255, 255, 0.08);
+  --glass-surface-elevated: rgba(255, 255, 255, 0.12);
+  --glass-border-highlight: rgba(255, 255, 255, 0.38);
+  --glass-border-subtle: rgba(255, 255, 255, 0.16);
+  --glass-border-bottom: rgba(255, 255, 255, 0.06);
+  --glass-specular: inset 0 1.5px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 18px 44px -8px rgba(0, 0, 0, 0.75),
+    0 4px 14px -2px rgba(0, 0, 0, 0.45);
+
+  /* Academic & Professional Scholarly Typography Stacks */
+  --font-newsreader: "Newsreader", "EB Garamond", "Georgia", "Times New Roman", serif;
+  --font-garamond: "EB Garamond", "Newsreader", "Georgia", "Times New Roman", serif;
+  --font-jakarta: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-cinzel: "Cinzel", "Newsreader", serif;
+
+  /* Universal Default Font (Oxford / Cambridge Scholarly Academic) */
+  --active-academic-font: var(--font-newsreader);
+  --active-academic-sans: var(--font-jakarta);
+}
+
+html[data-academic-font="newsreader"],
+:root[data-academic-font="newsreader"],
+html[data-handwritten-style="newsreader"],
+:root[data-handwritten-style="newsreader"] {
+  --active-academic-font: var(--font-newsreader);
+}
+
+html[data-academic-font="garamond"],
+:root[data-academic-font="garamond"],
+html[data-handwritten-style="garamond"],
+:root[data-handwritten-style="garamond"] {
+  --active-academic-font: var(--font-garamond);
+}
+
+html[data-academic-font="jakarta"],
+:root[data-academic-font="jakarta"],
+html[data-handwritten-style="jakarta"],
+:root[data-handwritten-style="jakarta"] {
+  --active-academic-font: var(--font-jakarta);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  background-color: #02050c;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.14) 0px, transparent 55%),
+    radial-gradient(at 100% 10%, rgba(30, 58, 138, 0.16) 0px, transparent 60%),
+    radial-gradient(at 50% 100%, rgba(225, 29, 72, 0.08) 0px, transparent 55%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+  font-family: var(--active-academic-font);
+  line-height: 1.62;
+  letter-spacing: 0.008em;
+  overflow-x: hidden;
+  min-height: 100dvh;
+  overscroll-behavior-y: none;
+}
+
+/* Natural typography inheritance */
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+p, blockquote {
+  overflow-wrap: break-word;
+}
+
+/* ==================== MAC WIDESCREEN & IPHONE 16e VIEWPORT SHELLS ==================== */
+.mac-dashboard-shell {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin-inline: auto;
+  padding: 1.25rem 1.25rem 5rem;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .mac-dashboard-shell {
+    padding-top: max(env(safe-area-inset-top, 0px), 0.75rem) !important;
+    padding-bottom: max(calc(env(safe-area-inset-bottom, 0px) + 5.5rem), 6.5rem) !important;
+    padding-left: max(env(safe-area-inset-left, 0px), 0.65rem) !important;
+    padding-right: max(env(safe-area-inset-right, 0px), 0.65rem) !important;
+  }
+}
+
+/* ==================== NATIVE MACOS WINDOW DRAG REGION ==================== */
+.mac-drag-region {
+  -webkit-app-region: drag;
+}
+
+.mac-no-drag {
+  -webkit-app-region: no-drag;
+}
+
+blockquote,
+.academic-quote,
+.academic-prose {
+  font-family: var(--active-academic-font);
+}
+
+.iphone-16e-shell {
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin-inline: auto;
+  padding: 0.75rem 1.25rem 5rem;
+  position: relative;
+}
+
+/* Fluid typography & touch targets scaled for iPhone (393x852pt) */
+@media (max-width: 640px) {
+  .liquid-glass-long-bar {
+    border-radius: 1.5rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .liquid-glass-bento {
+    padding: 1rem 0.85rem !important;
+    border-radius: 1.25rem !important;
+  }
+
+  button, a {
+    touch-action: manipulation;
+  }
+}
+
+.iphone-chapter-title {
+  font-size: clamp(1.22rem, 0.95rem + 1.4vw, 1.45rem);
+  line-height: 1.25;
+}
+
+/* ==================== WEBKIT GPU COMPOSITING & SAFARI OPTIMIZATIONS ==================== */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+.gpu-scroll-container {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* ==================== MODERN WEB GUIDANCE: DEFER OFF-SCREEN HEAVY CONTENT ==================== */
+.deferred-chapter-card {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 540px;
+}
+
+/* ==================== MODERN WEB GUIDANCE: RESPONSIVE TABLE WITH CONTAINER QUERIES ==================== */
+.table-wrapper {
+  overflow-x: auto;
+  max-inline-size: 100%;
+  max-block-size: min(520px, 75dvh);
+  container-type: inline-size;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-wrapper table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.table-wrapper thead {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 2;
+  background: #0b1024;
+}
+
+.table-wrapper tbody th {
+  position: sticky;
+  inset-inline-start: 0;
+  z-index: 1;
+  background: #0b1024;
+}
+
+@container (width < 600px) {
+  .table-wrapper table,
+  .table-wrapper thead,
+  .table-wrapper tbody,
+  .table-wrapper tr,
+  .table-wrapper th,
+  .table-wrapper td {
+    display: block;
+  }
+
+  .table-wrapper thead {
+    display: none;
+  }
+
+  .table-wrapper tr {
+    margin-block-end: 0.65rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 1rem;
+    padding: 0.65rem;
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .table-wrapper tbody th {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 2;
+    background: rgba(11, 16, 36, 0.95);
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ==================== STATIC GPU AMBIENT ORBS (ZERO BLUR REPAINT OVERHEAD) ==================== */
+.liquid-ambient-orb {
+  position: fixed;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 0;
+  contain: strict;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* ==================== APPLE LIQUID GLASS UNIFIED LONG BAR ==================== */
+.liquid-glass-long-bar {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(14, 21, 46, 0.9) 45%,
+    rgba(6, 10, 24, 0.97) 100%
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border-left: 1px solid rgba(255, 255, 255, 0.18);
+  border-right: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.82),
+    0 0 25px -4px rgba(56, 189, 248, 0.2),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.42),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 28px;
+  overflow: visible !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.3s ease,
+              border-color 0.3s ease;
+}
+
+.liquid-glass-long-bar:hover {
+  border-top-color: rgba(255, 255, 255, 0.65);
+  box-shadow: 0 24px 56px -8px rgba(0, 0, 0, 0.9),
+    0 0 30px -2px rgba(56, 189, 248, 0.28),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.55);
+}
+
+/* ==================== HIGH-PERFORMANCE LIQUID GLASS SURFACES (UNISWAP JELLY PHYSICS) ==================== */
+.liquid-glass-bento,
+.jelly-bento {
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(34, 211, 238, 0.08) 0%,
+    rgba(8, 20, 38, 0.86) 52%,
+    rgba(2, 6, 16, 0.96) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(56, 189, 248, 0.38);
+  border-left: 1px solid rgba(56, 189, 248, 0.16);
+  border-right: 1px solid rgba(30, 58, 138, 0.22);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow:
+    0 18px 44px -8px rgba(0, 0, 0, 0.85),
+    0 0 28px -4px rgba(6, 182, 212, 0.14),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.35);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Uniswap Spring Jelly Hover Physics */
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s ease,
+              box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.liquid-glass-bento:hover,
+.jelly-bento:hover {
+  transform: translateY(-1px);
+  border-top-color: rgba(34, 211, 238, 0.65);
+  box-shadow: 0 24px 54px -10px rgba(0, 0, 0, 0.92),
+    0 0 32px -2px rgba(6, 182, 212, 0.28),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5);
+}
+
+.liquid-glass-bento:active,
+.jelly-bento:active {
+  transform: scale(0.982) translateY(0);
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.liquid-glass-sidebar {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(6, 18, 34, 0.88) 55%,
+    rgba(1, 5, 12, 0.98) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(56, 189, 248, 0.35);
+  border-left: 1px solid rgba(56, 189, 248, 0.15);
+  border-right: 1px solid rgba(30, 58, 138, 0.18);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 48px -8px rgba(0, 0, 0, 0.8),
+    0 0 24px -4px rgba(6, 182, 212, 0.12),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.3);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+.liquid-glass-sheet {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(24, 34, 68, 0.96) 25%,
+    rgba(11, 16, 36, 0.98) 60%,
+    rgba(5, 8, 20, 0.99) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.88),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.32);
+}
+
+/* ==================== CENTERED LIQUID GLASS DOCK ==================== */
+.liquid-glass-dock {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(15, 23, 48, 0.92) 55%,
+    rgba(7, 11, 26, 0.98) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.45);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 16px 42px -4px rgba(0, 0, 0, 0.85),
+    0 0 24px -2px rgba(56, 189, 248, 0.25),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.4);
+  contain: layout paint;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
+}
+
+.liquid-glass-dock:hover {
+  transform: translateY(-2px);
+  border-top-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 48px -4px rgba(0, 0, 0, 0.9),
+    0 0 28px -2px rgba(56, 189, 248, 0.35),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* ==================== HIGH-PERFORMANCE LIQUID GLASS PILL (JELLY BOUNCE) ==================== */
+.liquid-glass-pill,
+.liquid-interactive {
+  background: rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.32);
+  border-left: 1px solid rgba(255, 255, 255, 0.14);
+  border-right: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              border-color 0.2s ease,
+              box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.liquid-glass-pill:hover,
+.liquid-interactive:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.16);
+  border-top-color: rgba(255, 255, 255, 0.58);
+  box-shadow: 0 8px 22px -4px rgba(0, 0, 0, 0.55),
+    inset 0 1px 1.5px rgba(255, 255, 255, 0.38);
+}
+
+.liquid-glass-pill:active,
+.liquid-interactive:active {
+  transform: scale(0.93) translateY(0);
+  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==================== SNAPPY, REACTIVE INTERACTIVE CONTROLS ==================== */
+button:not(:disabled) {
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
+}
+
+button:not(:disabled):active {
+  transform: scale(0.95);
+}
+
+/* Hide scrollbars on horizontal pill strips while preserving touch scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ==================== BUTTER-SMOOTH APPLE FLUID TRANSITIONS ==================== */
+@keyframes softFadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.liquid-view-enter {
+  animation: softFadeSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+.topic-transition-enter,
+.liquid-chapter-swap {
+  animation: softFadeSlideIn 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+/* Tactile Soft-Click & Tick Pop Mechanics */
+@keyframes tickPop {
+  0% {
+    transform: scale(0.65);
+    opacity: 0.2;
+  }
+  65% {
+    transform: scale(1.18);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-tick-pop {
+  animation: tickPop 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+button, [role="button"], a {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.soft-button {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              border-color 0.15s ease,
+              box-shadow 0.15s ease;
+}
+
+.soft-button:active {
+  transform: scale(0.95);
+}
+
+.soft-tick-btn {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.15s ease,
+              color 0.15s ease;
+}
+
+.soft-tick-btn:active {
+  transform: scale(0.85);
+}
+
+/* Subtle breathing specular sheen on liquid bento cards */
+@keyframes liquidSpecularPulse {
+  0%, 100% {
+    border-top-color: rgba(255, 255, 255, 0.42);
+  }
+  50% {
+    border-top-color: rgba(255, 255, 255, 0.62);
+  }
+}
+
+.liquid-pulse-rim {
+  animation: liquidSpecularPulse 4s ease-in-out infinite;
+}
+
+/* ==================== CINEMATIC STAGE CROSS-FADE ==================== */
+@keyframes cinematicStageFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.cinematic-stage-enter {
+  animation: cinematicStageFadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+/* Apple Liquid Buttery Jelly Spring Physics */
+@keyframes liquidJellyIn {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.85, 0.85, 1) translateY(-24px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale3d(1.05, 0.95, 1) translateY(4px);
+  }
+  75% {
+    transform: scale3d(0.98, 1.02, 1) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale3d(1, 1, 1) translateY(0);
+  }
+}
+
+.liquid-jelly-enter {
+  animation: liquidJellyIn 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Hyper-Reactive Instant Touch & Click */
+button, [role="button"], summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  cursor: pointer;
+}
+
+button:active, [role="button"]:active {
+  transform: scale3d(0.95, 0.95, 1) !important;
+  transition: transform 0.06s ease-out !important;
+}
+
+:root {
+  --theme-bg: #0b0d0d;
+  --theme-primary: #00ffff;
+  --theme-secondary: #00a8a8;
+  --theme-tertiary: #22d3ee;
+  --theme-glow: rgba(0, 255, 255, 0.32);
+  --theme-glow-strong: rgba(0, 168, 168, 0.3);
+  --theme-text: #c8ffff;
+}
+
+html {
+  background-color: #0b0d0d;
+}
+
+body {
+  background-color: #0b0d0d;
+  background-image:
+    radial-gradient(ellipse at 14% 10%, rgba(0, 255, 255, 0.16) 0%, transparent 42%),
+    radial-gradient(ellipse at 86% 16%, rgba(0, 255, 255, 0.1) 0%, transparent 46%),
+    radial-gradient(ellipse at 50% 108%, rgba(0, 168, 168, 0.16) 0%, transparent 60%),
+    linear-gradient(180deg, #0b0d0d 0%, #101414 55%, #080a0a 100%);
+}
+
+.ultraThinMaterial {
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(0, 255, 255, 0.1), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(14, 22, 22, 0.74) 52%, rgba(5, 8, 8, 0.92));
+  backdrop-filter: blur(18px) saturate(175%);
+  -webkit-backdrop-filter: blur(18px) saturate(175%);
+  border: 1px solid rgba(0, 255, 255, 0.24);
+  box-shadow:
+    0 16px 44px -14px rgba(0, 0, 0, 0.92),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.18),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.4);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  transition:
+    background 0.35s ease,
+    border-color 0.25s ease,
+    box-shadow 0.35s ease;
+}
+
+.ultraThinMaterial:hover {
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(0, 255, 255, 0.28), transparent 56%),
+    radial-gradient(120% 120% at 100% 100%, rgba(0, 168, 168, 0.24), transparent 62%),
+    linear-gradient(145deg, rgba(190, 255, 255, 0.1), rgba(12, 28, 28, 0.82) 52%, rgba(4, 8, 8, 0.94));
+  border-color: rgba(0, 255, 255, 0.52);
+  box-shadow:
+    0 22px 58px -16px rgba(0, 0, 0, 0.95),
+    0 0 44px -8px rgba(0, 255, 255, 0.48),
+    inset 0 1px 0 0 rgba(200, 255, 255, 0.38);
+}
+
+.liquid-glass-bento:hover {
+  box-shadow:
+    0 24px 54px -10px rgba(0, 0, 0, 0.9),
+    0 0 32px -4px rgba(0, 255, 255, 0.32),
+    inset 0 1.5px 0 0 rgba(200, 255, 255, 0.42);
+}
+
+.liquid-glass-dock:hover,
+.liquid-glass-longbar:hover {
+  box-shadow:
+    0 24px 56px -10px rgba(0, 0, 0, 0.92),
+    0 0 38px -6px rgba(0, 255, 255, 0.34),
+    inset 0 1.5px 0 0 rgba(200, 255, 255, 0.4);
+}
+
+/* Telescreen Ambient CRT Surveillance Mode */
+.telescreen-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99999;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.03), rgba(0, 0, 0, 0.01), rgba(239, 68, 68, 0.03));
+  background-size: 100% 3px, 6px 100%;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.6);
+}
+
+.telescreen-glow {
+  filter: contrast(1.05) brightness(1.03) saturate(1.1);
+}
+
+/* ==================== 120 FPS METAL HARDWARE-ACCELERATED LIQUID GLASS ==================== */
+@keyframes liquidCausticHalo {
+  0% { transform: rotate(0deg) scale(0.96) translateZ(0); opacity: 0.45; }
+  50% { transform: rotate(180deg) scale(1.08) translateZ(0); opacity: 0.72; }
+  100% { transform: rotate(360deg) scale(0.96) translateZ(0); opacity: 0.45; }
+}
+
+.liquid-caustic-halo {
+  animation: liquidCausticHalo 14s linear infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+@keyframes liquidLogoFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(0.98); }
+  50% { transform: translate3d(0, -4px, 0) scale(1.03); }
+}
+
+.liquid-logo-float {
+  animation: liquidLogoFloat 5.2s ease-in-out infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes liquidGlassSheen {
+  0% { transform: translate3d(-160%, 0, 0) skewX(-20deg); }
+  35%, 100% { transform: translate3d(240%, 0, 0) skewX(-20deg); }
+}
+
+.liquid-glass-sheen {
+  animation: liquidGlassSheen 4.6s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+@keyframes tuckedPillBeaconCyan {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.45), 0 0 16px rgba(6, 182, 212, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(6, 182, 212, 0), 0 0 24px rgba(6, 182, 212, 0.55);
+  }
+}
+
+.tucked-pill-beacon-cyan {
+  animation: tuckedPillBeaconCyan 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.soft-button {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.15s ease, background-color 0.15s ease !important;
+}
+.soft-button:active {
+  transform: scale(0.95) !important;
+}
+

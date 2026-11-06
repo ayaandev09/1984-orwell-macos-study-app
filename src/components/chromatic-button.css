@@ -1,0 +1,141 @@
+/**
+ * Option D + A: Tactile Frosted Glass Pillow
+ * 
+ * Calm, distortion-free frosted liquid glass with 3D tactile bevels.
+ * Completely eliminates distracting rainbow/chromatic animations.
+ */
+
+.tactile-glass-pillow-button {
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0.5rem 1.15rem;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  border-radius: 9999px;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+
+  /* Frosted Glass Backing with deep backdrop blur */
+  background: color-mix(in srgb, var(--button-accent-tint, rgba(255, 255, 255, 0.12)) 18%, rgba(255, 255, 255, 0.07));
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  /* Hairline Specular Border */
+  border: 1px solid rgba(255, 255, 255, 0.16);
+
+  /* 3D Tactile Pillow Bevel & Depth Shadows */
+  box-shadow:
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
+    0 2px 8px -1px rgba(0, 0, 0, 0.35);
+
+  /* Smooth Native Spring-like Transitions */
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 140ms cubic-bezier(0.16, 1, 0.3, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Specular Top Rim Highlight (Option D tactile pillow) */
+.tactile-pillow-bevel-top {
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Subtle Static Accent Glow */
+.tactile-pillow-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 0%,
+    color-mix(in srgb, var(--button-accent-tint, transparent) 25%, transparent) 0%,
+    transparent 75%
+  );
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Hover State - Gentle luminance lift, no motion or rainbow shift */
+.tactile-glass-pillow-button:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--button-accent-tint, rgba(255, 255, 255, 0.2)) 28%, rgba(255, 255, 255, 0.12));
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow:
+    inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px 0 rgba(0, 0, 0, 0.28),
+    0 4px 14px -2px rgba(0, 0, 0, 0.45),
+    0 0 12px 0 color-mix(in srgb, var(--button-accent-tint, transparent) 25%, transparent);
+  transform: translateY(-0.5px);
+}
+
+/* Active / Press State - Satisfying tactile cushion press */
+.tactile-glass-pillow-button:active:not(:disabled) {
+  transform: scale(0.97) translateY(0.5px);
+  background: color-mix(in srgb, var(--button-accent-tint, rgba(255, 255, 255, 0.15)) 22%, rgba(0, 0, 0, 0.2));
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow:
+    inset 0 2px 4px 0 rgba(0, 0, 0, 0.45),
+    0 1px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Disabled State */
+.tactile-glass-pillow-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Backward-compatibility classes for existing pill layouts */
+.chromatic-button {
+  composes: tactile-glass-pillow-button;
+}
+
+.chromatic-pill {
+  padding: 0.35rem 0.85rem !important;
+  font-size: 0.75rem !important;
+  border-radius: 9999px !important;
+}
+
+.chromatic-compact {
+  padding: 0.35rem 0.85rem !important;
+  font-size: 0.75rem !important;
+  min-width: 0 !important;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+
+.chromatic-icon {
+  padding: 0 !important;
+  width: 40px !important;
+  height: 40px !important;
+  min-width: 40px !important;
+  min-height: 40px !important;
+}
+
+.chromatic-icon .tactile-pillow-content {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0.35rem !important;
+}
