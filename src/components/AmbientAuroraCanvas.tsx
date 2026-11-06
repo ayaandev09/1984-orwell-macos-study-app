@@ -49,13 +49,13 @@ export function AmbientAuroraCanvas() {
     };
     setCanvasSize();
 
-    const particles: Particle[] = Array.from({ length: 42 }, (_, i) => ({
+    const particles: Particle[] = Array.from({ length: 30 }, (_, i) => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.34,
-      vy: -0.14 - Math.random() * 0.25,
-      radius: 1.2 + Math.random() * 2.1,
-      alpha: 0.22 + Math.random() * 0.45,
+      vx: (Math.random() - 0.5) * 0.16,
+      vy: -0.07 - Math.random() * 0.16,
+      radius: 1.0 + Math.random() * 1.6,
+      alpha: 0.12 + Math.random() * 0.28,
       color: PALETTE[i % PALETTE.length],
       phase: Math.random() * Math.PI * 2,
     }));
@@ -136,12 +136,12 @@ export function AmbientAuroraCanvas() {
             const cdy = p.y - p2.y;
             const cDistSq = cdx * cdx + cdy * cdy;
             if (cDistSq < 14400) {
-              const cAlpha = (1 - cDistSq / 14400) * 0.085;
+              const cAlpha = (1 - cDistSq / 14400) * 0.05;
               ctx.beginPath();
               ctx.moveTo(p.x, p.y);
               ctx.lineTo(p2.x, p2.y);
               ctx.strokeStyle = `rgba(6, 182, 212, ${cAlpha})`;
-              ctx.lineWidth = 0.6;
+              ctx.lineWidth = 0.55;
               ctx.stroke();
             }
           }
@@ -167,13 +167,13 @@ export function AmbientAuroraCanvas() {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
       aria-hidden="true"
     >
-      {/* Interactive Cursor-Tracking Liquid Specular Light */}
+      {/* Interactive Cursor-Tracking Soft Ambient Glow */}
       <div
         ref={glowRef}
-        className="w-[840px] h-[840px] rounded-full will-change-transform opacity-85 transition-opacity duration-700"
+        className="w-[720px] h-[720px] rounded-full will-change-transform opacity-45 blur-[40px] transition-opacity duration-700"
         style={{
           background:
-            "radial-gradient(circle, rgba(6, 182, 212, 0.11) 0%, rgba(239, 68, 68, 0.055) 38%, transparent 70%)",
+            "radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, rgba(239, 68, 68, 0.04) 38%, transparent 70%)",
         }}
       />
 
@@ -197,10 +197,10 @@ export function AmbientAuroraCanvas() {
         }}
       />
 
-      {/* 120 FPS Interactive Surveillance Telemetry Particle Canvas */}
+      {/* 120 FPS Serene Literary Telemetry Particle Canvas */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full opacity-85"
+        className="absolute inset-0 w-full h-full opacity-40"
       />
     </div>
   );
