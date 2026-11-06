@@ -422,19 +422,59 @@ blockquote,
     inset 0 1px 1.5px rgba(255, 255, 255, 0.38);
 }
 
+/* Universal Tactile Mechanical Button Actuation */
+button,
+[role="button"],
+a[role="button"],
+summary,
+.liquid-glass-pill,
+.soft-button,
+.soft-tick-btn {
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.16s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.12s ease,
+    border-color 0.12s ease,
+    filter 0.12s ease;
+}
+
+button:hover,
+[role="button"]:hover,
+a[role="button"]:hover,
+summary:hover,
+.liquid-glass-pill:hover,
+.soft-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+button:active,
+[role="button"]:active,
+a[role="button"]:active,
+summary:active,
 .liquid-glass-pill:active,
-.liquid-interactive:active {
-  transform: scale(0.975) translateY(0);
-  transition: transform 0.08s cubic-bezier(0.16, 1, 0.3, 1);
+.soft-button:active,
+.soft-tick-btn:active {
+  transform: translateY(1.5px) scale(0.965) !important;
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 1px 2px rgba(0, 0, 0, 0.3) !important;
+  transition: transform 0.04s cubic-bezier(0.2, 0, 0, 1), box-shadow 0.04s ease !important;
+  filter: brightness(0.93) !important;
 }
 
-/* ==================== SNAPPY, REACTIVE INTERACTIVE CONTROLS ==================== */
-button:not(:disabled) {
-  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s ease;
-}
-
-button:not(:disabled):active {
-  transform: scale(0.985);
+button:disabled,
+button[disabled],
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none !important;
+  filter: none !important;
 }
 
 /* Hide scrollbars on horizontal pill strips while preserving touch scroll */
@@ -570,15 +610,8 @@ button, [role="button"], a {
 }
 
 /* Hyper-Reactive Instant Touch & Click */
-button, [role="button"], summary {
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+summary {
   cursor: pointer;
-}
-
-button:active, [role="button"]:active {
-  transform: scale3d(0.95, 0.95, 1) !important;
-  transition: transform 0.06s ease-out !important;
 }
 
 :root {
