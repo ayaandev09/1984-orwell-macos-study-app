@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
+import { AmbientAuroraCanvas } from "@/components/AmbientAuroraCanvas";
 import { BOOK_PARTS, ALL_CHAPTERS, THEMES_TAXONOMY } from "@/data";
 import { useStudyStore } from "@/store/useStudyStore";
 import { FloatingSidebar } from "@/components/FloatingSidebar";
@@ -206,6 +207,7 @@ export default function Orwell1984LiquidShellPage() {
             : "opacity-75 scale-[0.985] blur-[6px] pointer-events-none select-none"
         }`}
       >
+        <AmbientAuroraCanvas />
         {/* ==================== MAIN SHELL CONTAINER ==================== */}
       <div className="relative z-10 w-full flex flex-col lg:flex-row gap-5 items-start">
         {/* Left Floating Sidebar */}

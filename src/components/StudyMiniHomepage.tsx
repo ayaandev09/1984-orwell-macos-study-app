@@ -2,6 +2,7 @@
 
 import { syncWidgetSnapshot } from "@/lib/widgetBridge";
 import React, { useMemo } from "react";
+import { motion } from "framer-motion";
 import { ALL_CHAPTERS, BOOK_PARTS } from "@/data";
 import { useStudyStore, WidgetTemplateSize } from "@/store/useStudyStore";
 import { OrwellAppLogo } from "./OrwellAppLogo";
@@ -122,43 +123,40 @@ export function StudyMiniHomepage() {
         </div>
 
         {/* Template Size Switcher (Small / Medium / Large) */}
-        <div className="flex items-center gap-1 p-0.5 rounded-full bg-black/60 border border-white/12 text-xs shrink-0">
-          <button
-            onClick={() => setWidgetTemplate("small")}
-            title="Compact Glanceable Strip"
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold transition-all cursor-pointer ${
-              widgetTemplate === "small"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <Minimize2 className="w-3 h-3" />
-            <span className="hidden sm:inline">Small</span>
-          </button>
-          <button
-            onClick={() => setWidgetTemplate("medium")}
-            title="Standard Balanced Widget"
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold transition-all cursor-pointer ${
-              widgetTemplate === "medium"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <Maximize2 className="w-3 h-3" />
-            <span className="hidden sm:inline">Medium</span>
-          </button>
-          <button
-            onClick={() => setWidgetTemplate("large")}
-            title="Expanded Studio Dossier"
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold transition-all cursor-pointer ${
-              widgetTemplate === "large"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <Columns3 className="w-3 h-3" />
-            <span className="hidden sm:inline">Large</span>
-          </button>
+        <div className="flex items-center gap-1 p-0.5 rounded-full bg-black/60 border border-white/12 text-xs shrink-0 relative">
+          {(["small", "medium", "large"] as WidgetTemplateSize[]).map((size) => {
+            const isActive = widgetTemplate === size;
+            return (
+              <button
+                key={size}
+                onClick={() => setWidgetTemplate(size)}
+                title={
+                  size === "small"
+                    ? "Compact Glanceable Strip"
+                    : size === "medium"
+                    ? "Standard Balanced Widget"
+                    : "Expanded Studio Dossier"
+                }
+                className={`relative flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold transition-colors cursor-pointer ${
+                  isActive ? "text-cyan-200" : "text-slate-400 hover:text-white"
+                }`}
+              >
+                {isActive && (
+                  <motion.div
+                    layoutId="widgetTemplateSizeIndicator"
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    className="absolute inset-0 rounded-full bg-cyan-500/25 border border-cyan-400/40 shadow-sm pointer-events-none"
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-1">
+                  {size === "small" && <Minimize2 className="w-3 h-3" />}
+                  {size === "medium" && <Maximize2 className="w-3 h-3" />}
+                  {size === "large" && <Columns3 className="w-3 h-3" />}
+                  <span className="hidden sm:inline capitalize">{size}</span>
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 

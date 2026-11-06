@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import {
   LayoutGrid,
   Layers,
@@ -432,7 +433,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
         {/* ========================================================================= */}
         <nav
           aria-label="Integrated Main Sections Bar"
-          className="w-full grid grid-cols-5 gap-1 sm:gap-1.5 p-1 bg-black/60 border border-white/12 rounded-2xl shadow-inner"
+          className="w-full grid grid-cols-5 gap-1 sm:gap-1.5 p-1 bg-black/60 border border-white/12 rounded-2xl shadow-inner relative"
         >
           {navModes.map((mode) => {
             const isActive = viewMode === mode.id;
@@ -440,17 +441,24 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               <button
                 key={mode.id}
                 onClick={() => setViewMode(mode.id)}
-                className={`col-span-1 flex items-center justify-center gap-1.5 py-1.5 sm:py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer truncate ${
+                className={`relative col-span-1 flex items-center justify-center gap-1.5 py-1.5 sm:py-2 px-1 rounded-xl text-xs font-bold transition-colors cursor-pointer truncate ${
                   isActive
-                    ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/50 shadow-md shadow-cyan-500/20"
+                    ? "text-cyan-200"
                     : "text-slate-400 hover:text-white hover:bg-white/5"
                 }`}
               >
-                <span className={isActive ? "text-cyan-300 shrink-0" : "text-slate-400 shrink-0"}>
+                {isActive && (
+                  <motion.div
+                    layoutId="activeNavTabIndicator"
+                    transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    className="absolute inset-0 rounded-xl bg-cyan-500/25 border border-cyan-400/50 shadow-md shadow-cyan-500/20 pointer-events-none"
+                  />
+                )}
+                <span className={`relative z-10 ${isActive ? "text-cyan-300 shrink-0" : "text-slate-400 shrink-0"}`}>
                   {mode.icon}
                 </span>
-                <span className="hidden 2xl:inline truncate">{mode.label}</span>
-                <span className="inline 2xl:hidden truncate">{mode.shortLabel}</span>
+                <span className="relative z-10 hidden 2xl:inline truncate">{mode.label}</span>
+                <span className="relative z-10 inline 2xl:hidden truncate">{mode.shortLabel}</span>
               </button>
             );
           })}

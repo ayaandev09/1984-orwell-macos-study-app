@@ -106,9 +106,18 @@ export function ImmersiveAppWalkthrough({
             boxShadow: "0 25px 60px -15px rgba(6, 182, 212, 0.25), 0 0 0 1px rgba(255,255,255,0.1) inset",
           }}
         >
+          {/* Top Animated Progress Ribbon */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
+            <motion.div
+              animate={{ width: `${((currentStep + 1) / 5) * 100}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 28 }}
+              className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-red-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]"
+            />
+          </div>
+
           {/* Ambient Specular Neon Ambient Glows */}
-          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20 bg-cyan-500" />
-          <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20 bg-red-600" />
+          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-25 bg-cyan-500 animate-aurora-slow-1" />
+          <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-25 bg-red-600 animate-aurora-slow-2" />
 
           {/* Modal Top Header & Step Indicator */}
           <div className="flex items-center justify-between pb-4 border-b border-white/10 shrink-0">
