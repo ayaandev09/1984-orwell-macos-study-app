@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Compass,
   Sparkles,
   ArrowRight,
   ArrowLeft,
@@ -12,16 +11,14 @@ import {
   Zap,
   BookOpen,
   LayoutGrid,
-  FileText,
-  Boxes,
-  HelpCircle,
   Search,
   PanelLeft,
   Eye,
   Timer,
   CheckCircle2,
+  Layers,
   GraduationCap,
-  Laptop,
+  Tv,
 } from "lucide-react";
 import { OrwellAppLogo } from "./OrwellAppLogo";
 
@@ -29,21 +26,166 @@ interface ImmersiveAppWalkthroughProps {
   isOpen: boolean;
   onClose: () => void;
   onSelectGoal?: (goal: "learn" | "revise") => void;
+  isInspectorOpen?: boolean;
+  onOpenInspector?: () => void;
 }
+
+interface TourStep {
+  id: string;
+  targetSelector: string;
+  badge: string;
+  title: string;
+  description: string;
+  shortcut?: string;
+  preferredPlacement: "top" | "bottom" | "left" | "right";
+  icon: React.ReactNode;
+}
+
+const TOUR_STEPS: TourStep[] = [
+  {
+    id: "sidebar",
+    targetSelector: '[data-tour="sidebar"]',
+    badge: "Navigation",
+    title: "Telescreen & Chapter Navigator",
+    description:
+      "Quickly browse all 24 chapters across Parts 1–3, Goldstein's Book, and the Newspeak Appendix. Track your reading completion percentage in real time.",
+    shortcut: "Press ⌘B anytime to collapse or expand for wide-screen reading.",
+    preferredPlacement: "right",
+    icon: <PanelLeft className="w-4 h-4 text-cyan-400" />,
+  },
+  {
+    id: "command-bar",
+    targetSelector: '[data-tour="command-bar"]',
+    badge: "Control Deck",
+    title: "Top Command Center",
+    description:
+      "Switch between Deep Study and Revision Cramming at will, toggle CRT phosphor scanlines, launch Timed Exam Sprints (⌘E), and trigger global Spotlight Search (⌘K).",
+    shortcut: "Press ⌘E to start an immediate 15-minute exam simulation.",
+    preferredPlacement: "bottom",
+    icon: <Zap className="w-4 h-4 text-cyan-400" />,
+  },
+  {
+    id: "nav-tabs",
+    targetSelector: '[data-tour="nav-tabs"]',
+    badge: "Workflows",
+    title: "5 Oceania Study Views",
+    description:
+      "Seamlessly transition between Chapter Bento, Continuous Text, Active Recall revision flashcards, Theme Matrix, and the Newspeak Translator.",
+    shortcut: "Press keys 1 through 5 on your keyboard to instantly jump between views.",
+    preferredPlacement: "bottom",
+    icon: <Layers className="w-4 h-4 text-cyan-400" />,
+  },
+  {
+    id: "study-bento",
+    targetSelector: '[data-tour="study-bento"]',
+    badge: "Chapter Theory",
+    title: "Interactive Chapter Bento & Doublethink",
+    description:
+      "Every chapter features detailed textual annotations, psychological manipulation analyses, historical allegories, and speed-read bullet points.",
+    shortcut: "Click cards to flip for active recall questions and examiner analysis.",
+    preferredPlacement: "top",
+    icon: <LayoutGrid className="w-4 h-4 text-cyan-400" />,
+  },
+  {
+    id: "inspector",
+    targetSelector: '[data-tour="inspector"]',
+    badge: "Analytical Sidecar",
+    title: "Oceania Codex Inspector",
+    description:
+      "Your personal analytical dossier: Party power mechanics, Doublethink analysis, active recall flip cards, and persistent field notes.",
+    shortcut: "Press ⌘I to unfold or tuck the inspector away.",
+    preferredPlacement: "left",
+    icon: <Eye className="w-4 h-4 text-cyan-400" />,
+  },
+];
 
 export function ImmersiveAppWalkthrough({
   isOpen,
   onClose,
   onSelectGoal,
+  isInspectorOpen = true,
+  onOpenInspector,
 }: ImmersiveAppWalkthroughProps) {
   const [mounted, setMounted] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [chosenGoal, setChosenGoal] = useState<"learn" | "revise">("learn");
+  const [targetRect, setTargetRect] = useState<DOMRect | null>(null);
+
+  const isCelebrationStep = currentStep >= TOUR_STEPS.length;
+  const currentStepData = !isCelebrationStep ? TOUR_STEPS[currentStep] : null;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  // Update target bounding box on step change, resize, and scroll
+  const updateBoundingRect = useCallback(() => {
+    if (isCelebrationStep || !currentStepData) {
+      setTargetRect(null);
+      return;
+    }
+
+    const el = document.querySelector(currentStepData.targetSelector);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      setTargetRect(rect);
+    } else {
+      setTargetRect(null);
+    }
+  }, [isCelebrationStep, currentStepData]);
+
+  // Handle step change side-effects
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if (!isCelebrationStep && currentStepData) {
+      // Auto-open inspector if targeting inspector and currently closed
+      if (currentStepData.id === "inspector" && onOpenInspector && !isInspectorOpen) {
+        onOpenInspector();
+      }
+
+      // Smooth scroll target element into viewport if partially hidden
+      const el = document.querySelector(currentStepData.targetSelector);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    }
+
+    // Measure immediately and after smooth scroll completes
+    updateBoundingRect();
+    const frame = requestAnimationFrame(updateBoundingRect);
+    const timer = setTimeout(updateBoundingRect, 280);
+
+    window.addEventListener("resize", updateBoundingRect);
+    window.addEventListener("scroll", updateBoundingRect, true);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      clearTimeout(timer);
+      window.removeEventListener("resize", updateBoundingRect);
+      window.removeEventListener("scroll", updateBoundingRect, true);
+    };
+  }, [isOpen, currentStep, isCelebrationStep, currentStepData, isInspectorOpen, onOpenInspector, updateBoundingRect]);
+
+  const handleNext = useCallback(() => {
+    setCurrentStep((prev) => Math.min(prev + 1, TOUR_STEPS.length));
+  }, []);
+
+  const handleBack = useCallback(() => {
+    setCurrentStep((prev) => Math.max(prev - 1, 0));
+  }, []);
+
+  const handleFinish = useCallback(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem("hasSeenAppWalkthrough_orwell_v1", "true");
+    }
+    if (onSelectGoal) {
+      onSelectGoal(chosenGoal);
+    }
+    onClose();
+  }, [chosenGoal, onClose, onSelectGoal]);
+
+  // Global Keyboard shortcuts during tour
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -52,13 +194,17 @@ export function ImmersiveAppWalkthrough({
         handleFinish();
       } else if (e.key === "ArrowRight") {
         e.preventDefault();
-        handleNext();
+        if (isCelebrationStep) {
+          handleFinish();
+        } else {
+          handleNext();
+        }
       } else if (e.key === "ArrowLeft") {
         e.preventDefault();
         handleBack();
       } else if (e.key === "Enter") {
         e.preventDefault();
-        if (currentStep === 4) {
+        if (isCelebrationStep) {
           handleFinish();
         } else {
           handleNext();
@@ -67,520 +213,288 @@ export function ImmersiveAppWalkthrough({
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, currentStep, chosenGoal]);
+  }, [isOpen, isCelebrationStep, handleNext, handleBack, handleFinish]);
 
-  const handleNext = () => {
-    setCurrentStep((prev) => Math.min(prev + 1, 4));
-  };
-
-  const handleBack = () => {
-    setCurrentStep((prev) => Math.max(prev - 1, 0));
-  };
-
-  const handleFinish = () => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("hasSeenAppWalkthrough_1984_v1", "true");
+  // Calculate dynamic position for floating callout card
+  const calloutPosition = useMemo(() => {
+    if (!targetRect || isCelebrationStep || !currentStepData) {
+      return null;
     }
-    if (onSelectGoal) {
-      onSelectGoal(chosenGoal);
+
+    const winW = typeof window !== "undefined" ? window.innerWidth : 1200;
+    const winH = typeof window !== "undefined" ? window.innerHeight : 800;
+    const cardW = 380;
+    const cardH = 260;
+
+    // Small screens: pin to bottom
+    if (winW < 768) {
+      return {
+        bottom: 24,
+        left: 16,
+        right: 16,
+      };
     }
-    onClose();
-  };
+
+    const placement = currentStepData.preferredPlacement;
+    let top = 0;
+    let left = 0;
+
+    if (placement === "right") {
+      left = Math.min(winW - cardW - 24, targetRect.right + 20);
+      top = Math.max(24, Math.min(winH - cardH - 24, targetRect.top + (targetRect.height - cardH) / 2));
+    } else if (placement === "left") {
+      left = Math.max(24, targetRect.left - cardW - 20);
+      top = Math.max(24, Math.min(winH - cardH - 24, targetRect.top + (targetRect.height - cardH) / 2));
+    } else if (placement === "top") {
+      top = Math.max(24, targetRect.top - cardH - 20);
+      left = Math.max(24, Math.min(winW - cardW - 24, targetRect.left + (targetRect.width - cardW) / 2));
+    } else {
+      // bottom
+      top = Math.min(winH - cardH - 24, targetRect.bottom + 20);
+      left = Math.max(24, Math.min(winW - cardW - 24, targetRect.left + (targetRect.width - cardW) / 2));
+    }
+
+    return { top, left };
+  }, [targetRect, isCelebrationStep, currentStepData]);
 
   if (!isOpen || !mounted) return null;
 
+  const pad = 8;
+  const highlightBox = targetRect
+    ? {
+        top: Math.max(4, targetRect.top - pad),
+        left: Math.max(4, targetRect.left - pad),
+        width: Math.min(window.innerWidth - 8, targetRect.width + pad * 2),
+        height: Math.min(window.innerHeight - 8, targetRect.height + pad * 2),
+      }
+    : null;
+
   return createPortal(
     <AnimatePresence>
-      <div
-        className="fixed inset-0 z-[9999999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-2xl overflow-y-auto select-none"
-        onClick={handleFinish}
-      >
-        <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 20 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.92, y: 20 }}
-          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-          onClick={(e) => e.stopPropagation()}
-          className="relative w-full max-w-3xl rounded-3xl p-6 sm:p-9 border border-cyan-400/30 bg-gradient-to-b from-slate-900/95 via-slate-950/98 to-black text-white shadow-2xl overflow-hidden flex flex-col min-h-[580px] justify-between"
-          style={{
-            boxShadow: "0 25px 60px -15px rgba(6, 182, 212, 0.25), 0 0 0 1px rgba(255,255,255,0.1) inset",
-          }}
-        >
-          {/* Top Animated Progress Ribbon */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-white/5 overflow-hidden">
-            <motion.div
-              animate={{ width: `${((currentStep + 1) / 5) * 100}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 28 }}
-              className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-red-500 shadow-[0_0_12px_rgba(6,182,212,0.8)]"
-            />
-          </div>
+      <div className="fixed inset-0 z-[999990] select-none">
+        {/* Full-screen Dark Backdrop when no target or on Celebration step */}
+        {(!highlightBox || isCelebrationStep) && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999991] bg-black/85 backdrop-blur-xl"
+            onClick={handleFinish}
+          />
+        )}
 
-          {/* Ambient Specular Neon Ambient Glows */}
-          <div className="absolute -top-32 -left-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-25 bg-cyan-500 animate-aurora-slow-1" />
-          <div className="absolute -bottom-32 -right-32 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-25 bg-red-600 animate-aurora-slow-2" />
+        {/* Dynamic Spotlight Cutout & Glowing Outline */}
+        {highlightBox && !isCelebrationStep && (
+          <motion.div
+            key="spotlight-frame"
+            initial={false}
+            animate={{
+              top: highlightBox.top,
+              left: highlightBox.left,
+              width: highlightBox.width,
+              height: highlightBox.height,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 340,
+              damping: 32,
+            }}
+            className="fixed pointer-events-none z-[999992] rounded-3xl"
+            style={{
+              boxShadow:
+                "0 0 0 9999px rgba(3, 7, 18, 0.82), 0 0 35px rgba(6, 182, 212, 0.65), inset 0 0 20px rgba(6, 182, 212, 0.25)",
+              border: "2px solid #06b6d4",
+            }}
+          >
+            {/* Animated Radiant Border Glow */}
+            <div className="absolute -inset-1 rounded-[26px] pointer-events-none opacity-75 animate-pulse border-2 border-cyan-400 shadow-[0_0_20px_#06b6d4]" />
+          </motion.div>
+        )}
 
-          {/* Modal Top Header & Step Indicator */}
-          <div className="flex items-center justify-between pb-4 border-b border-white/10 shrink-0">
-            <div className="flex items-center gap-2.5">
-              <span className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300">
-                <Compass className="w-4 h-4 animate-spin-slow" />
-              </span>
-              <div>
-                <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-cyan-400 uppercase block">
-                  MAC NATIVE ONBOARDING // TOUR
+        {/* ========================================================================= */}
+        {/* INTERACTIVE FLOATING CALLOUT CARD (STEP 1 - 5) */}
+        {/* ========================================================================= */}
+        {!isCelebrationStep && currentStepData && calloutPosition && (
+          <motion.div
+            key={`tour-card-${currentStepData.id}`}
+            initial={{ opacity: 0, y: 12, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              top: calloutPosition.top,
+              left: calloutPosition.left,
+              bottom: calloutPosition.bottom,
+              right: calloutPosition.right,
+              position: "fixed",
+            }}
+            className="z-[999999] pointer-events-auto w-full max-w-[390px] p-5 sm:p-6 rounded-3xl bg-slate-950/92 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl flex flex-col gap-3 text-left"
+          >
+            {/* Header: Step Badge + Tag + Skip */}
+            <div className="flex items-center justify-between gap-2 pb-2 border-b border-white/10">
+              <div className="flex items-center gap-2 min-w-0">
+                <span className="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 flex items-center justify-center shrink-0">
+                  {currentStepData.icon}
                 </span>
-                <span className="text-xs font-semibold text-slate-300">
-                  Minitrue Oceania • Interactive App Walkthrough
-                </span>
+                <div className="min-w-0">
+                  <span className="text-[10px] font-mono font-bold tracking-wider text-cyan-400 uppercase block truncate">
+                    Step {currentStep + 1} of {TOUR_STEPS.length} · {currentStepData.badge}
+                  </span>
+                </div>
               </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 border border-white/10 text-[11px] font-mono text-slate-400">
-                <span className="text-cyan-300 font-bold">Step {currentStep + 1}</span>
-                <span>/</span>
-                <span>5</span>
-              </div>
-
               <button
                 onClick={handleFinish}
-                title="Skip Walkthrough (Esc)"
-                className="w-8 h-8 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-all cursor-pointer border border-white/10"
+                title="Skip Interactive Walkthrough"
+                className="text-[11px] font-mono text-slate-400 hover:text-white px-2 py-1 rounded-lg hover:bg-white/10 transition-all cursor-pointer flex items-center gap-1"
               >
-                <X className="w-4 h-4" />
+                <span>Skip</span>
+                <X className="w-3 h-3" />
               </button>
             </div>
-          </div>
 
-          {/* Step Body Content with Smooth Slide Transitions */}
-          <div className="my-auto py-5">
-            <AnimatePresence mode="wait">
-              {/* SLIDE 0: Welcome & Core Architecture */}
-              {currentStep === 0 && (
-                <motion.div
-                  key="step-0"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex flex-col items-center text-center space-y-4"
-                >
-                  <div className="relative group">
-                    <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-cyan-400/30 via-red-500/20 to-cyan-600/30 border border-cyan-400/50 flex items-center justify-center p-3 shadow-2xl overflow-hidden relative">
-                      <OrwellAppLogo className="w-full h-full object-contain" />
-                    </div>
-                    <div className="absolute -inset-2 rounded-3xl bg-cyan-500/20 blur-xl -z-10 animate-pulse" />
-                  </div>
-
-                  <div className="space-y-1.5 max-w-lg">
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                      Welcome to <span className="text-cyan-400">Minitrue Oceania</span>
-                    </h2>
-                    <p className="text-sm text-slate-300 leading-relaxed">
-                      The native macOS study companion built for International Baccalaureate (IB) Diploma Language & Literature students and Orwellian scholars.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-xl text-left pt-2">
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-1">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
-                        <Zap className="w-3.5 h-3.5 text-cyan-400" /> 120 FPS Mac Native
-                      </span>
-                      <p className="text-[11px] text-slate-400 leading-tight">
-                        Fluid AppKit liquid glass shell with silky panoptic CRT telemetry.
-                      </p>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-1">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-red-400">
-                        <GraduationCap className="w-3.5 h-3.5 text-red-400" /> All 24 Chapters
-                      </span>
-                      <p className="text-[11px] text-slate-400 leading-tight">
-                        Exhaustive textual commentary across Part One, Two, and Three.
-                      </p>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-1">
-                      <span className="flex items-center gap-1.5 text-xs font-bold text-amber-300">
-                        <Laptop className="w-3.5 h-3.5 text-amber-400" /> 100% On-Device
-                      </span>
-                      <p className="text-[11px] text-slate-400 leading-tight">
-                        Completely offline state with live macOS desktop widget synchronization.
-                      </p>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* SLIDE 1: 5 Symmetrical Modalities */}
-              {currentStep === 1 && (
-                <motion.div
-                  key="step-1"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className="text-center space-y-1">
-                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-cyan-400 uppercase">
-                      FIVE INTEGRATED SECTIONS
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">
-                      Panoptic Telemetry for Close Reading & Exams
-                    </h3>
-                    <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                      Switch instantly between 5 dedicated view formats using the top command bar or numeric shortcuts.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 pt-2">
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 transition-colors">
-                      <div className="space-y-1.5">
-                        <LayoutGrid className="w-4 h-4 text-cyan-400" />
-                        <span className="text-xs font-bold text-white block">1. Bento</span>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                          Command center with surveillance threat level & chapter dossier.
-                        </p>
-                      </div>
-                      <span className="text-[9px] font-mono text-cyan-400/80 mt-2">Default</span>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 transition-colors">
-                      <div className="space-y-1.5">
-                        <FileText className="w-4 h-4 text-emerald-400" />
-                        <span className="text-xs font-bold text-white block">2. Stream</span>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                          Unbroken editorial stream with line notes & historical subtext.
-                        </p>
-                      </div>
-                      <span className="text-[9px] font-mono text-emerald-400/80 mt-2">⌘ + 1</span>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 transition-colors">
-                      <div className="space-y-1.5">
-                        <Boxes className="w-4 h-4 text-purple-400" />
-                        <span className="text-xs font-bold text-white block">3. Matrix</span>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                          5 Totalitarian Themes: Panopticism, Doublethink, Newspeak & Class.
-                        </p>
-                      </div>
-                      <span className="text-[9px] font-mono text-purple-400/80 mt-2">Synthesis</span>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 transition-colors">
-                      <div className="space-y-1.5">
-                        <Zap className="w-4 h-4 text-amber-400" />
-                        <span className="text-xs font-bold text-white block">4. Revision</span>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                          Active recall flashcards on slogans, Goldstein, and Room 101.
-                        </p>
-                      </div>
-                      <span className="text-[9px] font-mono text-amber-400/80 mt-2">⌘ + 2</span>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between hover:border-cyan-400/40 transition-colors">
-                      <div className="space-y-1.5">
-                        <HelpCircle className="w-4 h-4 text-red-400" />
-                        <span className="text-xs font-bold text-white block">5. Newspeak</span>
-                        <p className="text-[10px] text-slate-400 leading-snug">
-                          Complete Newspeak dictionary & interactive translator simulator.
-                        </p>
-                      </div>
-                      <span className="text-[9px] font-mono text-red-400/80 mt-2">Lexicon</span>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* SLIDE 2: Pro Shortcuts & Ergonomics */}
-              {currentStep === 2 && (
-                <motion.div
-                  key="step-2"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className="text-center space-y-1">
-                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-cyan-400 uppercase">
-                      ERGONOMICS & HOTKEYS
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">
-                      Designed for Fast Keyboard Navigation
-                    </h3>
-                    <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                      Access chapters, surveillance dossiers, and exam drills with single hotkeys.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-300 flex items-center justify-center">
-                          <Search className="w-3.5 h-3.5" />
-                        </span>
-                        <div>
-                          <span className="text-xs font-bold text-white block">Global Jelly Spotlight</span>
-                          <span className="text-[10px] text-slate-400">Search axioms, Newspeak, and characters</span>
-                        </div>
-                      </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-xs font-mono font-bold text-cyan-300">
-                        ⌘ + K
-                      </kbd>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-7 h-7 rounded-xl bg-emerald-500/20 text-emerald-300 flex items-center justify-center">
-                          <PanelLeft className="w-3.5 h-3.5" />
-                        </span>
-                        <div>
-                          <span className="text-xs font-bold text-white block">Sidebar Drawer Toggle</span>
-                          <span className="text-[10px] text-slate-400">Expand reading canvas on wide displays</span>
-                        </div>
-                      </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-xs font-mono font-bold text-emerald-300">
-                        ⌘ + B
-                      </kbd>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-7 h-7 rounded-xl bg-purple-500/20 text-purple-300 flex items-center justify-center">
-                          <Eye className="w-3.5 h-3.5" />
-                        </span>
-                        <div>
-                          <span className="text-xs font-bold text-white block">Surveillance Inspector</span>
-                          <span className="text-[10px] text-slate-400">Telemetry, character foils & exam tips</span>
-                        </div>
-                      </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-xs font-mono font-bold text-purple-300">
-                        ⌘ + I
-                      </kbd>
-                    </div>
-
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between">
-                      <div className="flex items-center gap-2.5">
-                        <span className="w-7 h-7 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center">
-                          <Timer className="w-3.5 h-3.5" />
-                        </span>
-                        <div>
-                          <span className="text-xs font-bold text-white block">Timed Exam Sprint</span>
-                          <span className="text-[10px] text-slate-400">5m, 15m, 45m essay planning drill</span>
-                        </div>
-                      </div>
-                      <kbd className="px-2 py-1 rounded-lg bg-black/60 border border-white/15 text-xs font-mono font-bold text-amber-300">
-                        ⌘ + E
-                      </kbd>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* SLIDE 3: Live Desktop Widgets */}
-              {currentStep === 3 && (
-                <motion.div
-                  key="step-3"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className="text-center space-y-1">
-                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-cyan-400 uppercase">
-                      MACOS WIDGETKIT INTEGRATION
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">
-                      Live Telemetry On Your Mac Wallpaper
-                    </h3>
-                    <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                      Keep chapter progress and daily quotes visible on your desktop.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold">Small (2x2)</span>
-                        <h4 className="text-xs font-bold text-white mt-1">Daily Axiom & Streak</h4>
-                        <p className="text-[11px] text-slate-400 mt-1 leading-snug">
-                          Displays streak count, chapter completion, and daily rotating Party axiom.
-                        </p>
-                      </div>
-                      <div className="mt-3 p-2 rounded-xl bg-black/40 border border-white/10 flex items-center gap-2">
-                        <span className="text-base">👁️</span>
-                        <div className="text-[10px] leading-tight">
-                          <span className="font-bold text-white block">"Freedom is Slavery"</span>
-                          <span className="text-cyan-400">4-Day Active Streak</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold">Medium (4x2)</span>
-                        <h4 className="text-xs font-bold text-white mt-1">Part Progress Tracker</h4>
-                        <p className="text-[11px] text-slate-400 mt-1 leading-snug">
-                          Live progress across Part 1, 2, and 3 with one-click direct chapter resume.
-                        </p>
-                      </div>
-                      <div className="mt-3 p-2 rounded-xl bg-black/40 border border-white/10">
-                        <div className="flex justify-between text-[10px] text-slate-300 mb-1">
-                          <span>Part 2: The Brotherhood</span>
-                          <span className="font-mono text-emerald-400 font-bold">75%</span>
-                        </div>
-                        <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
-                          <div className="h-full bg-emerald-400 rounded-full w-[75%]" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 flex flex-col justify-between">
-                      <div>
-                        <span className="text-[10px] font-mono text-purple-400 uppercase font-bold">Large (4x4)</span>
-                        <h4 className="text-xs font-bold text-white mt-1">Oceania Dossier Center</h4>
-                        <p className="text-[11px] text-slate-400 mt-1 leading-snug">
-                          Comprehensive 24-chapter matrix, scheduled recall cards, and telescreen toggle.
-                        </p>
-                      </div>
-                      <div className="mt-3 p-2 rounded-xl bg-black/40 border border-white/10 flex items-center justify-between text-[10px]">
-                        <span className="text-purple-300 font-bold">All 3 Parts Synced</span>
-                        <span className="font-mono text-slate-400">Instant Launch</span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* SLIDE 4: Choose Focus & Launch */}
-              {currentStep === 4 && (
-                <motion.div
-                  key="step-4"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.2 }}
-                  className="space-y-4"
-                >
-                  <div className="text-center space-y-1">
-                    <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-cyan-400 uppercase">
-                      SELECT YOUR INITIAL POSTURE
-                    </span>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white">
-                      How Would You Like to Start Reading?
-                    </h3>
-                    <p className="text-xs text-slate-300 max-w-lg mx-auto">
-                      Choose your study objective. You can switch modes anytime from the top bar.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                    <button
-                      onClick={() => setChosenGoal("learn")}
-                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                        chosenGoal === "learn"
-                          ? "bg-cyan-500/20 border-cyan-400/80 shadow-lg ring-1 ring-cyan-400/40"
-                          : "bg-white/5 border-white/10 hover:border-white/20"
-                      }`}
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                          <BookOpen className="w-5 h-5 text-cyan-400" />
-                          {chosenGoal === "learn" && (
-                            <CheckCircle2 className="w-4 h-4 text-cyan-300" />
-                          )}
-                        </div>
-                        <h4 className="text-sm font-bold text-white">Guided Textual Study</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Comprehensive chapter breakdowns, historical subtext notes, and detailed literary device annotations.
-                        </p>
-                      </div>
-                      <span className="text-[10px] font-mono text-cyan-400 font-bold mt-3">
-                        Ideal for first-time reading & close analysis
-                      </span>
-                    </button>
-
-                    <button
-                      onClick={() => setChosenGoal("revise")}
-                      className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                        chosenGoal === "revise"
-                          ? "bg-amber-500/20 border-amber-400/80 shadow-lg ring-1 ring-amber-400/40"
-                          : "bg-white/5 border-white/10 hover:border-white/20"
-                      }`}
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                          <Zap className="w-5 h-5 text-amber-400" />
-                          {chosenGoal === "revise" && (
-                            <CheckCircle2 className="w-4 h-4 text-amber-300" />
-                          )}
-                        </div>
-                        <h4 className="text-sm font-bold text-white">Thoughtcrime Revision & Cram</h4>
-                        <p className="text-xs text-slate-300 leading-relaxed">
-                          Active recall flashcards on Party slogans, character motivations, and timed Paper 1/2 comparative essay outlines.
-                        </p>
-                      </div>
-                      <span className="text-[10px] font-mono text-amber-400 font-bold mt-3">
-                        Ideal for exam cramming & essay drills
-                      </span>
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          {/* Modal Bottom Controls */}
-          <div className="flex items-center justify-between pt-4 border-t border-white/10 shrink-0">
-            <button
-              onClick={handleBack}
-              disabled={currentStep === 0}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
-                currentStep === 0
-                  ? "opacity-30 cursor-not-allowed text-slate-500"
-                  : "bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white cursor-pointer border border-white/10"
-              }`}
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Back</span>
-            </button>
-
-            <div className="flex items-center gap-2">
-              {[0, 1, 2, 3, 4].map((stepIdx) => (
-                <button
-                  key={stepIdx}
-                  onClick={() => setCurrentStep(stepIdx)}
-                  className={`h-2 rounded-full transition-all cursor-pointer ${
-                    currentStep === stepIdx
-                      ? "w-6 bg-cyan-400 shadow-sm"
-                      : "w-2 bg-white/20 hover:bg-white/40"
-                  }`}
-                />
-              ))}
+            {/* Title & Description */}
+            <div>
+              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight mb-1.5">
+                {currentStepData.title}
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                {currentStepData.description}
+              </p>
             </div>
 
-            {currentStep < 4 ? (
+            {/* Shortcut Hint Pill */}
+            {currentStepData.shortcut && (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/5 border border-white/10 text-[11px] font-mono text-cyan-300">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+                <span className="truncate">{currentStepData.shortcut}</span>
+              </div>
+            )}
+
+            {/* Footer Navigation Bar */}
+            <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/10 mt-1">
+              <button
+                onClick={handleBack}
+                disabled={currentStep === 0}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  currentStep === 0
+                    ? "opacity-30 cursor-not-allowed text-slate-500"
+                    : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10 active:scale-95"
+                }`}
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back</span>
+              </button>
+
+              {/* Progress Dots */}
+              <div className="flex items-center gap-1.5">
+                {TOUR_STEPS.map((s, idx) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setCurrentStep(idx)}
+                    className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                      currentStep === idx
+                        ? "w-5 bg-cyan-400 shadow-[0_0_8px_#06b6d4]"
+                        : "w-1.5 bg-white/20 hover:bg-white/40"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Next Button */}
               <button
                 onClick={handleNext}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all cursor-pointer shadow-lg hover:shadow-cyan-500/30"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-mono shadow-lg shadow-cyan-500/25 active:scale-95 transition-all cursor-pointer"
               >
-                <span>Continue</span>
+                <span>Next</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
-            ) : (
+            </div>
+          </motion.div>
+        )}
+
+        {/* ========================================================================= */}
+        {/* FINAL CELEBRATION CARD ("YOU'RE READY!") */}
+        {/* ========================================================================= */}
+        {isCelebrationStep && (
+          <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+              className="w-full max-w-md p-6 sm:p-8 rounded-3xl bg-slate-950/95 border border-cyan-500/40 backdrop-blur-2xl shadow-2xl flex flex-col items-center text-center relative overflow-hidden"
+            >
+              {/* Radial Background Aurora */}
+              <div className="absolute -top-24 -left-24 w-56 h-56 rounded-full bg-cyan-500/20 blur-3xl pointer-events-none" />
+              <div className="absolute -bottom-24 -right-24 w-56 h-56 rounded-full bg-rose-500/20 blur-3xl pointer-events-none" />
+
+              {/* Celebration Icon with Animated Halo */}
+              <div className="relative mb-4">
+                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-cyan-500/30 to-sky-500/20 border-2 border-cyan-400/60 flex items-center justify-center p-3 shadow-xl relative z-10">
+                  <CheckCircle2 className="w-8 h-8 text-cyan-400 animate-tick-pop" />
+                </div>
+                <div className="absolute -inset-2 rounded-3xl bg-cyan-400/20 blur-lg animate-pulse" />
+              </div>
+
+              {/* Heading & Subtitle */}
+              <span className="text-[11px] font-mono font-bold tracking-[0.25em] text-cyan-400 uppercase mb-1">
+                Tour Complete
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+                You&apos;re Ready!
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-6 max-w-sm">
+                You now know all the key tools to study George Orwell&apos;s 1984 with maximum depth and analytical clarity. Choose your starting study posture:
+              </p>
+
+              {/* Study Posture Selector */}
+              <div className="grid grid-cols-2 gap-3 w-full mb-6">
+                <button
+                  onClick={() => setChosenGoal("learn")}
+                  className={`p-3.5 rounded-2xl border text-left flex flex-col gap-1 transition-all cursor-pointer ${
+                    chosenGoal === "learn"
+                      ? "bg-cyan-500/20 border-cyan-400/60 text-white shadow-lg shadow-cyan-500/20"
+                      : "bg-white/5 border-white/10 text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
+                    <BookOpen className="w-4 h-4" />
+                    <span>Deep Study</span>
+                  </div>
+                  <span className="text-[11px] text-slate-300 leading-snug">
+                    Full text annotations, psychological models &amp; historical context.
+                  </span>
+                </button>
+
+                <button
+                  onClick={() => setChosenGoal("revise")}
+                  className={`p-3.5 rounded-2xl border text-left flex flex-col gap-1 transition-all cursor-pointer ${
+                    chosenGoal === "revise"
+                      ? "bg-amber-500/20 border-amber-400/60 text-white shadow-lg shadow-amber-500/20"
+                      : "bg-white/5 border-white/10 text-slate-400 hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-300">
+                    <Zap className="w-4 h-4" />
+                    <span>Revision Cram</span>
+                  </div>
+                  <span className="text-[11px] text-slate-300 leading-snug">
+                    Exam sprint drills, Newspeak flashcards &amp; Party slogans.
+                  </span>
+                </button>
+              </div>
+
+              {/* Enter Codex Button */}
               <button
                 onClick={handleFinish}
-                className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-extrabold bg-gradient-to-r from-cyan-400 to-emerald-400 hover:from-cyan-300 hover:to-emerald-300 text-slate-950 transition-all cursor-pointer shadow-xl hover:shadow-cyan-500/40 transform hover:scale-[1.02]"
+                className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-500 hover:from-cyan-400 hover:to-sky-300 text-slate-950 font-bold text-sm shadow-xl shadow-cyan-500/30 flex items-center justify-center gap-2 transition-all active:scale-98 cursor-pointer font-mono uppercase tracking-wider"
               >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Enter Minitrue Oceania</span>
+                <span>Enter 1984 Codex</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
-            )}
+            </motion.div>
           </div>
-        </motion.div>
+        )}
       </div>
     </AnimatePresence>,
     document.body

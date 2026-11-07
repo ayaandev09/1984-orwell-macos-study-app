@@ -284,7 +284,7 @@ export default function Orwell1984LiquidShellPage() {
                 </div>
 
                 {/* Active Chapter Bento Grid with Buttery Smooth Swap */}
-                <div key={activeChapter.id} className="liquid-chapter-swap">
+                <div key={activeChapter.id} data-tour="study-bento" className="liquid-chapter-swap">
                   <ChapterBentoCard
                     chapter={activeChapter}
                     isDeferredBelowFold={false}
@@ -453,6 +453,10 @@ export default function Orwell1984LiquidShellPage() {
       isOpen={isWalkthroughOpen}
       onClose={() => setIsWalkthroughOpen(false)}
       onSelectGoal={(goal) => setStudyGoal(goal)}
+      isInspectorOpen={isInspectorOpen}
+      onOpenInspector={() => {
+        if (!isInspectorOpen) toggleInspector();
+      }}
     />
     </>
   );

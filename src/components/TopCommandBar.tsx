@@ -174,6 +174,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
   return (
     <>
       <header
+        data-tour="command-bar"
         className="liquid-glass-long-bar !rounded-3xl overflow-hidden p-2.5 sm:p-3 mb-3 flex flex-col gap-2 shadow-xl relative mac-drag-region transition-all z-20 w-full max-w-full"
       >
         {/* ========================================================================= */}
@@ -396,6 +397,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
         {/* ROW 2: SYMMETRICAL 5-COLUMN NAVIGATION GRID — 100% Adaptive to Any Mac */}
         {/* ========================================================================= */}
         <nav
+          data-tour="nav-tabs"
           aria-label="Integrated Main Sections Bar"
           className="w-full grid grid-cols-5 gap-1 p-1 bg-black/60 border border-white/12 rounded-2xl shadow-inner relative max-w-full overflow-hidden"
         >
