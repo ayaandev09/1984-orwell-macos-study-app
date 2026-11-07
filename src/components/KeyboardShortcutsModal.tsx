@@ -133,7 +133,7 @@ export function KeyboardShortcutsModal({
 
                 <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.04] border border-white/10">
                   <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                    <Eye className="w-3.5 h-3.5 text-amber-400" />
                     <span>Toggle Pro Inspector</span>
                   </div>
                   <div className="flex items-center gap-1 font-mono text-[11px]">
@@ -231,9 +231,9 @@ export function KeyboardShortcutsModal({
                   onClose();
                   onOpenTour();
                 }}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-400/35 transition-all cursor-pointer shadow-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-400/35 transition-all cursor-pointer shadow-sm"
               >
-                <Compass className="w-3.5 h-3.5 text-cyan-400" />
+                <Compass className="w-3.5 h-3.5 text-amber-400" />
                 <span>Launch Interactive Tour</span>
               </button>
             ) : (

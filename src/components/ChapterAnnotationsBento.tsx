@@ -52,21 +52,21 @@ export const ChapterAnnotationsBento: React.FC<ChapterAnnotationsBentoProps> = (
   return (
     <div className="liquid-glass-bento rounded-3xl p-5 sm:p-6 space-y-4 border border-white/15 shadow-2xl relative overflow-hidden backdrop-blur-2xl">
       {/* Background ambient color glow */}
-      <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+      <div className="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
       <div className="absolute -bottom-16 -left-16 w-56 h-56 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
 
       {/* Header with Title and School Study Tip */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-white/10 relative z-10">
         <div className="flex items-center gap-2.5">
-          <span className="p-2.5 rounded-2xl bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 shrink-0">
-            <Highlighter className="w-5 h-5 text-cyan-300" />
+          <span className="p-2.5 rounded-2xl bg-amber-500/20 text-amber-300 border border-amber-400/30 shrink-0">
+            <Highlighter className="w-5 h-5 text-amber-300" />
           </span>
           <div>
             <div className="flex items-center gap-2">
               <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
                 Essential Book Marginalia &amp; Exam Annotations
               </h3>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">
                 Ch. {chapterCode}
               </span>
             </div>
@@ -85,7 +85,7 @@ export const ChapterAnnotationsBento: React.FC<ChapterAnnotationsBentoProps> = (
       {/* Color Code Legend & Category Filter Bar */}
       <div className="space-y-2 relative z-10">
         <div className="flex items-center gap-1.5 text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-          <Filter className="w-3 h-3 text-cyan-400" />
+          <Filter className="w-3 h-3 text-amber-400" />
           <span>Highlighter Color Code (Carried Throughout 1984):</span>
         </div>
 

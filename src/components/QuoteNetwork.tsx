@@ -5,8 +5,8 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motio
 import { ALL_CHAPTERS, THEMES_TAXONOMY, ThemeId } from "@/data";
 import { Network, Quote as QuoteIcon, X } from "lucide-react";
 
-const ACCENT = "#00FFFF";
-const SECONDARY = "#00A8A8";
+const ACCENT = "#f59e0b";
+const SECONDARY = "#d97706";
 
 interface QuoteNode {
   id: string;
@@ -89,7 +89,7 @@ export function QuoteNetwork() {
           <div>
             <h3 className="text-base font-bold text-white">Quote Network · Panoptic Theme Topology</h3>
             <p className="text-[11px] text-slate-400">
-              Magnetic node parallax with shared <code>layoutId</code> transitions and the neon-cyan radial glow.
+              Magnetic node parallax with shared <code>layoutId</code> transitions and the warm-amber radial glow.
             </p>
           </div>
         </div>
@@ -168,7 +168,7 @@ export function QuoteNetwork() {
                       </span>
                       <QuoteIcon className="h-3 w-3 opacity-60 transition-opacity group-hover:opacity-100" style={{ color: primaryTheme?.color || ACCENT }} />
                     </div>
-                    <p className="line-clamp-3 font-serif text-[11px] italic leading-relaxed text-cyan-50">“{quote.quote}”</p>
+                    <p className="line-clamp-3 font-serif text-[11px] italic leading-relaxed text-amber-50">“{quote.quote}”</p>
                     <div className="flex flex-wrap gap-1">
                       {quote.themes.slice(0, 2).map((themeId) => {
                         const meta = THEMES_TAXONOMY[themeId];
@@ -225,7 +225,7 @@ export function QuoteNetwork() {
               </button>
 
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <span className="rounded-lg bg-cyan-900/40 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-200">{selected.chapterCode}</span>
+                <span className="rounded-lg bg-amber-900/40 px-2 py-0.5 font-mono text-[10px] font-bold text-amber-200">{selected.chapterCode}</span>
                 {selected.themes.map((themeId) => {
                   const meta = THEMES_TAXONOMY[themeId];
                   return meta ? (
@@ -240,8 +240,8 @@ export function QuoteNetwork() {
                 })}
               </div>
 
-              <blockquote className="font-serif text-xl italic leading-relaxed text-cyan-50">“{selected.quote}”</blockquote>
-              <p className="mt-2 font-mono text-[11px] text-cyan-300/90">— {selected.speaker} · {selected.context}</p>
+              <blockquote className="font-serif text-xl italic leading-relaxed text-amber-50">“{selected.quote}”</blockquote>
+              <p className="mt-2 font-mono text-[11px] text-amber-300/90">— {selected.speaker} · {selected.context}</p>
               <p className="mt-4 border-t border-white/10 pt-3 text-xs leading-relaxed text-slate-200">{selected.analysis}</p>
             </motion.div>
           </motion.div>

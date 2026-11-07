@@ -186,7 +186,7 @@ export const FloatingBottomDock: React.FC = React.memo(() => {
           <motion.div
             animate={{ width: `${Math.max(progressPct, 4)}%` }}
             transition={{ type: "spring", stiffness: 260, damping: 28 }}
-            className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-emerald-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
+            className="h-full bg-gradient-to-r from-amber-500 via-sky-400 to-emerald-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"
           />
         </div>
 
@@ -207,7 +207,7 @@ export const FloatingBottomDock: React.FC = React.memo(() => {
               onClick={() => jumpToPartFirstChapter(p.firstId)}
               className={`relative px-2.5 py-1 rounded-full text-xs font-mono font-bold transition-colors cursor-pointer ${
                 p.active
-                  ? "text-cyan-200"
+                  ? "text-amber-200"
                   : "text-slate-300 hover:text-white hover:bg-white/10"
               }`}
             >
@@ -215,7 +215,7 @@ export const FloatingBottomDock: React.FC = React.memo(() => {
                 <motion.div
                   layoutId="dockPartIndicator"
                   transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                  className="absolute inset-0 rounded-full bg-cyan-500/30 border border-cyan-400/50 shadow-sm pointer-events-none"
+                  className="absolute inset-0 rounded-full bg-amber-500/30 border border-amber-400/50 shadow-sm pointer-events-none"
                 />
               )}
               <span className="relative z-10">{p.label}</span>
@@ -317,14 +317,14 @@ export const FloatingBottomDock: React.FC = React.memo(() => {
           title="Cycle Built-In Study Soundscape (Rain -> Alpha Focus Drone -> Off)"
           className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border ${
             soundMode !== "off"
-              ? "bg-cyan-500/25 text-cyan-200 border-cyan-400/50 shadow-[0_0_14px_rgba(6,182,212,0.3)]"
+              ? "bg-amber-500/25 text-amber-200 border-amber-400/50 shadow-[0_0_14px_rgba(6,182,212,0.3)]"
               : "liquid-glass-pill text-slate-300 hover:text-white border-white/10"
           }`}
         >
           {soundMode === "off" ? (
             <VolumeX className="w-3.5 h-3.5 text-slate-400" />
           ) : (
-            <Headphones className="w-3.5 h-3.5 text-cyan-300 animate-pulse" />
+            <Headphones className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
           )}
           <span className="text-[11px] font-mono">
             {soundMode === "off"

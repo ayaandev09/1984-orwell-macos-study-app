@@ -137,8 +137,8 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
           chapter.summary
         }
         answer={matchingCram?.sixtySecondSummary || chapter.summary}
-        accent="#00FFFF"
-        secondary="#00A8A8"
+        accent="#f59e0b"
+        secondary="#d97706"
         meta="ACTIVE RECALL"
       />
 
@@ -147,7 +147,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
           {/* Hierarchy Breadcrumb: Book Part ➔ Chapter */}
           <div className="flex flex-wrap items-center gap-2">
-            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-sky-500/20 text-sky-300 border border-sky-400/40">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase tracking-wider bg-amber-500/20 text-amber-200 border border-amber-400/35">
               Part {bookPart?.romanNumeral} • Chapter {chapter.displayCode}
             </span>
 

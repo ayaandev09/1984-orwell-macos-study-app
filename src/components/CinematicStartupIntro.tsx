@@ -191,7 +191,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
     >
       {/* Static GPU-composited Ambient Aura Blobs (Zero CPU overhead) */}
       <div
-        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-cyan-500/15 blur-[80px] pointer-events-none"
+        className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-amber-500/15 blur-[80px] pointer-events-none"
         style={{ transform: "translateZ(0)" }}
       />
       <div
@@ -215,7 +215,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
         <div className="absolute inset-x-0 top-0 h-32 rounded-t-[2rem] bg-gradient-to-b from-white/[0.08] via-white/[0.02] to-transparent pointer-events-none" />
 
         {/* Authentic Liquid Glass Logo Showcase — 120 FPS Metal Accelerated */}
-        <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden relative mb-4 bg-gradient-to-b from-black/90 via-black/75 to-[#04101e] border border-cyan-400/40 shadow-2xl flex items-center justify-center p-4 relative">
+        <div className="w-full h-40 sm:h-48 rounded-2xl overflow-hidden relative mb-4 bg-gradient-to-b from-black/90 via-black/75 to-[#04101e] border border-amber-400/40 shadow-2xl flex items-center justify-center p-4 relative">
           {/* Rotating Ambient Caustic Liquid Halo */}
           <div
             className="absolute w-60 h-60 rounded-full pointer-events-none liquid-caustic-halo"
@@ -239,7 +239,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
                 }}
               />
             </div>
-            <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-cyan-400 animate-ping pointer-events-none" />
+            <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-amber-400 animate-ping pointer-events-none" />
           </div>
         </div>
 
@@ -247,16 +247,16 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-cyan-300">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300">
                 1984 // OCEANIA CODEX
               </span>
-              <span className="px-1.5 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-[9px] font-mono text-cyan-200">
+              <span className="px-1.5 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-[9px] font-mono text-amber-200">
                 MINITRUE
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2 mt-0.5">
               <span>George Orwell&apos;s 1984</span>
-              <Sparkles className="w-4 h-4 text-cyan-300" />
+              <Sparkles className="w-4 h-4 text-amber-300" />
             </h1>
           </div>
           <div className="text-right font-mono">
@@ -268,10 +268,10 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
         </div>
 
         {/* Dynamic Focus Milestone Card (Up Next • Still To Do) */}
-        <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-400/20 mb-4">
+        <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/20 mb-4">
           <div className="flex items-center justify-between mb-1.5">
-            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-300">
-              <Compass className="w-3 h-3 text-cyan-400" /> Up Next • Still To Do
+            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold uppercase tracking-wider text-amber-300">
+              <Compass className="w-3 h-3 text-amber-400" /> Up Next • Still To Do
             </span>
             <span className="text-[10px] font-mono text-slate-400">
               {remainingChaptersCount} chapters remaining
@@ -280,7 +280,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
           <h2 className="text-sm sm:text-base font-bold text-white mb-1 line-clamp-1">
             {nextTodoChapter?.displayCode}: {nextTodoChapter?.title}
           </h2>
-          <p className="text-xs text-cyan-100/70 line-clamp-2 font-sans mb-3">
+          <p className="text-xs text-amber-100/70 line-clamp-2 font-sans mb-3">
             {nextTodoChapter?.summary || "Continue totalitarian state analysis and Winston Smith psychogeography."}
           </p>
 
@@ -291,7 +291,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
               if (nextTodoChapter) setActiveChapter(nextTodoChapter.id);
               handleDismiss();
             }}
-            className="w-full py-2 px-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+            className="w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-mono font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
           >
             <span>Jump Directly to Chapter</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -304,11 +304,11 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
           <div className="p-3.5 rounded-2xl bg-black/40 border border-white/10 flex flex-col justify-between">
             <div className="flex items-center justify-between text-slate-400 text-[10px] mb-2">
               <span>MASTERY</span>
-              <span className="text-cyan-300 font-bold">{masteryPercent}%</span>
+              <span className="text-amber-300 font-bold">{masteryPercent}%</span>
             </div>
             <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden mb-2">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-red-500 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-amber-400 to-red-500 transition-all duration-500"
                 style={{ width: `${masteryPercent}%` }}
               />
             </div>
@@ -324,7 +324,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
               <span className="text-red-300">~{estimatedMins}m left</span>
             </div>
             <div className="flex items-center gap-1.5 text-slate-200 text-[11px] font-semibold my-1">
-              <Clock className="w-3.5 h-3.5 text-cyan-400" />
+              <Clock className="w-3.5 h-3.5 text-amber-400" />
               <span>Session: {formattedSessionTime}</span>
             </div>
             <span className="text-[10px] text-emerald-400 font-semibold">
@@ -346,7 +346,7 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
         {/* Footer: Countdown & Skip Action */}
         <div className="flex items-center justify-between pt-1 border-t border-white/10 text-xs">
           <span className="text-[11px] font-mono text-slate-400">
-            Opening workspace in <span className="text-cyan-300 font-bold">{countdown}s</span>...
+            Opening workspace in <span className="text-amber-300 font-bold">{countdown}s</span>...
           </span>
           <motion.button
             whileHover={{ scale: 1.04 }}

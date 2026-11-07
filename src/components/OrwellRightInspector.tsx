@@ -85,15 +85,15 @@ export function OrwellRightInspector({
           data-tour="inspector"
           className="w-80 lg:w-88 shrink-0 sticky top-3 select-none overflow-hidden transition-all z-10"
         >
-          <div className="liquid-glass-bento rounded-3xl p-4 border border-cyan-500/35 bg-slate-950/85 backdrop-blur-2xl shadow-2xl flex flex-col max-h-[calc(100vh-1.5rem)] overflow-hidden">
+          <div className="liquid-glass-bento rounded-3xl p-4 border border-amber-500/35 bg-slate-950/85 backdrop-blur-2xl shadow-2xl flex flex-col max-h-[calc(100vh-1.5rem)] overflow-hidden">
             {/* Top Header */}
             <div className="flex items-center justify-between gap-2 pb-2.5 mb-3 border-b border-white/10 shrink-0 min-h-[44px]">
               <div className="flex items-center gap-2 min-w-0">
-                <div className="p-1.5 rounded-xl bg-cyan-500/20 border border-cyan-400/30 text-cyan-300 shrink-0">
+                <div className="p-1.5 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300 shrink-0">
                   <Eye className="w-4 h-4" />
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] font-mono font-bold tracking-wider text-cyan-400 uppercase block truncate">
+                  <span className="text-[10px] font-mono font-bold tracking-wider text-amber-400 uppercase block truncate">
                     OCEANIA INSPEKTOR
                   </span>
                   <h3 className="text-xs font-semibold text-white tracking-tight truncate">
@@ -135,7 +135,7 @@ export function OrwellRightInspector({
             onClick={() => setActiveTab("recall")}
             className={`py-1.5 px-1 rounded-lg text-[10px] font-mono font-bold uppercase transition-all cursor-pointer truncate ${
               activeTab === "recall"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
+                ? "bg-amber-500/25 text-amber-200 border border-amber-400/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -145,7 +145,7 @@ export function OrwellRightInspector({
             onClick={() => setActiveTab("quotes")}
             className={`py-1.5 px-1 rounded-lg text-[10px] font-mono font-bold uppercase transition-all cursor-pointer truncate ${
               activeTab === "quotes"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
+                ? "bg-amber-500/25 text-amber-200 border border-amber-400/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -155,7 +155,7 @@ export function OrwellRightInspector({
             onClick={() => setActiveTab("totalitarian")}
             className={`py-1.5 px-1 rounded-lg text-[10px] font-mono font-bold uppercase transition-all cursor-pointer truncate ${
               activeTab === "totalitarian"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
+                ? "bg-amber-500/25 text-amber-200 border border-amber-400/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -165,7 +165,7 @@ export function OrwellRightInspector({
             onClick={() => setActiveTab("notes")}
             className={`py-1.5 px-1 rounded-lg text-[10px] font-mono font-bold uppercase transition-all cursor-pointer truncate ${
               activeTab === "notes"
-                ? "bg-cyan-500/25 text-cyan-200 border border-cyan-400/40 shadow-sm"
+                ? "bg-amber-500/25 text-amber-200 border border-amber-400/40 shadow-sm"
                 : "text-slate-400 hover:text-white"
             }`}
           >
@@ -179,7 +179,7 @@ export function OrwellRightInspector({
           {activeTab === "recall" && (
             <div className="space-y-3">
               <div className="space-y-1">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-cyan-400 block font-bold">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 block font-bold">
                   Active Recall Flipcard
                 </span>
                 <p className="text-[11px] text-slate-400">
@@ -202,8 +202,8 @@ export function OrwellRightInspector({
               />
 
               {/* Examiner Evaluation Criteria */}
-              <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-400/25 space-y-2">
-                <div className="flex items-center gap-1.5 text-cyan-300 font-bold font-mono text-[11px]">
+              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/25 space-y-2">
+                <div className="flex items-center gap-1.5 text-amber-300 font-bold font-mono text-[11px]">
                   <GraduationCap className="w-3.5 h-3.5" />
                   <span>Examiner Level 7 Criteria</span>
                 </div>
@@ -228,22 +228,22 @@ export function OrwellRightInspector({
               {/* Launch Timed Exam Sprint Action Card */}
               <button
                 onClick={openExamSprint}
-                className="w-full p-3 rounded-2xl bg-gradient-to-r from-cyan-500/20 via-cyan-500/15 to-rose-500/15 border border-cyan-400/40 hover:border-cyan-400/70 text-left transition-all cursor-pointer flex items-center justify-between group shadow-lg"
+                className="w-full p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 via-cyan-500/15 to-rose-500/15 border border-amber-400/40 hover:border-amber-400/70 text-left transition-all cursor-pointer flex items-center justify-between group shadow-lg"
               >
                 <div className="flex items-center gap-2.5">
-                  <span className="p-2 rounded-xl bg-cyan-400/20 text-cyan-300 border border-cyan-400/30 group-hover:scale-105 transition-transform">
+                  <span className="p-2 rounded-xl bg-amber-400/20 text-amber-300 border border-amber-400/30 group-hover:scale-105 transition-transform">
                     <Timer className="w-4 h-4 animate-pulse" />
                   </span>
                   <div>
                     <span className="font-mono text-xs font-bold text-white block">
                       Launch Timed Exam Sprint
                     </span>
-                    <span className="text-[10px] text-cyan-200/80">
+                    <span className="text-[10px] text-amber-200/80">
                       15m / 30m / 45m timed writing drill
                     </span>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono text-cyan-300 font-bold px-2 py-1 rounded-lg bg-black/40 border border-white/10">
+                <span className="text-[10px] font-mono text-amber-300 font-bold px-2 py-1 rounded-lg bg-black/40 border border-white/10">
                   ⌘E
                 </span>
               </button>
@@ -254,7 +254,7 @@ export function OrwellRightInspector({
           {activeTab === "quotes" && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[9px] uppercase tracking-wider text-cyan-400 font-bold">
+                <span className="font-mono text-[9px] uppercase tracking-wider text-amber-400 font-bold">
                   Chapter Quotations ({chapter.quotes?.length || 0})
                 </span>
                 <span className="text-[10px] text-slate-400 font-mono">Click bookmark to pin</span>
@@ -265,17 +265,17 @@ export function OrwellRightInspector({
                 return (
                   <div
                     key={q.id}
-                    className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10 space-y-2 hover:border-cyan-400/35 transition-all"
+                    className="p-3.5 rounded-2xl bg-slate-900/60 border border-white/10 space-y-2 hover:border-amber-400/35 transition-all"
                   >
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-mono text-[10px] text-cyan-300 font-bold px-2 py-0.5 rounded-md bg-cyan-500/15 border border-cyan-400/20">
+                      <span className="font-mono text-[10px] text-amber-300 font-bold px-2 py-0.5 rounded-md bg-amber-500/15 border border-amber-400/20">
                         {q.speaker}
                       </span>
                       <button
                         onClick={() => toggleBookmarkQuote(q.id)}
                         className={`p-1 rounded-lg transition-colors cursor-pointer ${
                           isBookmarked
-                            ? "text-cyan-400 hover:text-cyan-300"
+                            ? "text-amber-400 hover:text-amber-300"
                             : "text-slate-500 hover:text-slate-300"
                         }`}
                       >
@@ -287,7 +287,7 @@ export function OrwellRightInspector({
                       </button>
                     </div>
 
-                    <blockquote className="font-serif italic text-xs text-cyan-100/95 leading-relaxed">
+                    <blockquote className="font-serif italic text-xs text-amber-100/95 leading-relaxed">
                       &ldquo;{q.quote}&rdquo;
                     </blockquote>
 
@@ -323,8 +323,8 @@ export function OrwellRightInspector({
           {/* TAB 3: TOTALITARIAN THEORY & CONTEXT */}
           {activeTab === "totalitarian" && (
             <div className="space-y-3">
-              <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-400/25 space-y-1.5">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-300 font-bold flex items-center gap-1.5">
+              <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/25 space-y-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-amber-300 font-bold flex items-center gap-1.5">
                   <Eye className="w-3.5 h-3.5" />
                   Sapir-Whorf Hypothesis &amp; Newspeak
                 </span>
@@ -364,7 +364,7 @@ export function OrwellRightInspector({
           {activeTab === "notes" && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
                   <Edit3 className="w-3.5 h-3.5" />
                   Chapter Analytical Notes
                 </span>
@@ -391,7 +391,7 @@ export function OrwellRightInspector({
                 onChange={(e) => setChapterNote(chapter.id, e.target.value)}
                 placeholder="Draft topic sentences, Orwellian allegorical links, or class quotes for this chapter..."
                 rows={10}
-                className="w-full rounded-2xl bg-black/40 border border-white/10 p-3 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-cyan-400/50 resize-none font-sans leading-relaxed"
+                className="w-full rounded-2xl bg-black/40 border border-white/10 p-3 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-400/50 resize-none font-sans leading-relaxed"
               />
 
               <p className="text-[10px] text-slate-400 font-mono">

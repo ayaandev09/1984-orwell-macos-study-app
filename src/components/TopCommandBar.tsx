@@ -276,7 +276,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               title={sidebarCollapsed ? "Expand Chapter Navigation Sidebar (⌘B)" : "Collapse Sidebar for Wide View (⌘B)"}
               className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all cursor-pointer soft-button shrink-0 border ${
                 sidebarCollapsed
-                  ? "bg-cyan-500/20 text-cyan-300 border-cyan-400/40 shadow-sm"
+                  ? "bg-amber-500/20 text-amber-300 border-amber-400/40 shadow-sm"
                   : "bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border-white/10"
               }`}
             >
@@ -309,11 +309,11 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
             <button
               onClick={openSpotlight}
               title="Search Chapters & Themes (⌘K)"
-              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 hover:border-cyan-400/40 text-slate-300 hover:text-white cursor-pointer transition-all shrink-0"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-white cursor-pointer transition-all shrink-0"
             >
-              <Search className="w-3.5 h-3.5 text-cyan-400" />
+              <Search className="w-3.5 h-3.5 text-amber-400" />
               <span className="text-[11px] font-medium text-slate-300 hidden md:inline">Search</span>
-              <kbd className="inline-flex items-center px-1 py-0.2 rounded text-[9px] font-mono font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-400/25">
+              <kbd className="inline-flex items-center px-1 py-0.2 rounded text-[9px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-400/25">
                 ⌘K
               </kbd>
             </button>
@@ -350,10 +350,10 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
             <button
               onClick={openExamSprint}
               title="Launch Timed Exam Sprint (⌘E)"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border bg-cyan-500/15 text-cyan-200 border-cyan-400/35 hover:bg-cyan-500/25 shadow-sm soft-button shrink-0"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border bg-amber-500/15 text-amber-200 border-amber-400/35 hover:bg-amber-500/25 shadow-sm soft-button shrink-0"
             >
-              <Timer className="w-3.5 h-3.5 text-cyan-300 animate-pulse" />
-              <span className="text-[10px] font-mono text-cyan-400/70">⌘E</span>
+              <Timer className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
+              <span className="text-[10px] font-mono text-amber-400/70">⌘E</span>
             </button>
 
             {/* Telescreen CRT Surveillance Mode Toggle */}
@@ -375,10 +375,10 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               <button
                 onClick={toggleInspector}
                 title="Open Analytical Inspector (⌘I)"
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border soft-button shrink-0 bg-cyan-500/15 text-cyan-200 hover:text-white border-cyan-400/50 hover:border-cyan-300 shadow-[0_0_18px_rgba(6,182,212,0.35)] tucked-pill-beacon-cyan"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border soft-button shrink-0 bg-amber-500/15 text-amber-200 hover:text-white border-amber-400/50 hover:border-amber-300 shadow-[0_0_18px_rgba(6,182,212,0.35)] tucked-pill-beacon-cyan"
               >
-                <Eye className="w-3.5 h-3.5 text-cyan-300" />
-                <span className="text-[10px] font-mono text-cyan-400/80">⌘I</span>
+                <Eye className="w-3.5 h-3.5 text-amber-300" />
+                <span className="text-[10px] font-mono text-amber-400/80">⌘I</span>
               </button>
             )}
 
@@ -409,7 +409,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                 onClick={() => setViewMode(mode.id)}
                 className={`relative col-span-1 flex items-center justify-center gap-1.5 py-1.5 sm:py-2 px-1 rounded-xl text-xs font-bold transition-colors cursor-pointer min-w-0 overflow-hidden ${
                   isActive
-                    ? "text-cyan-200"
+                    ? "text-amber-200"
                     : "text-slate-400 hover:text-white hover:bg-white/5"
                 }`}
               >
@@ -417,10 +417,10 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                   <motion.div
                     layoutId="activeNavTabIndicator"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className="absolute inset-0 rounded-xl bg-cyan-500/25 border border-cyan-400/50 shadow-md shadow-cyan-500/20 pointer-events-none"
+                    className="absolute inset-0 rounded-xl bg-amber-500/25 border border-amber-400/50 shadow-md shadow-cyan-500/20 pointer-events-none"
                   />
                 )}
-                <span className={`relative z-10 ${isActive ? "text-cyan-300 shrink-0" : "text-slate-400 shrink-0"}`}>
+                <span className={`relative z-10 ${isActive ? "text-amber-300 shrink-0" : "text-slate-400 shrink-0"}`}>
                   {mode.icon}
                 </span>
                 <span className="relative z-10 text-xs truncate">{mode.shortLabel}</span>
@@ -506,9 +506,9 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                   setIsMobileOptionsOpen(false);
                   openExamSprint();
                 }}
-                className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 text-xs font-bold active:scale-95 transition-all cursor-pointer shadow-sm"
+                className="flex items-center justify-center gap-2 p-3 rounded-2xl bg-amber-500/20 border border-amber-400/40 text-amber-200 text-xs font-bold active:scale-95 transition-all cursor-pointer shadow-sm"
               >
-                <Timer className="w-4 h-4 text-cyan-300 animate-pulse" />
+                <Timer className="w-4 h-4 text-amber-300 animate-pulse" />
                 <span>Timed Exam Sprint</span>
               </button>
 

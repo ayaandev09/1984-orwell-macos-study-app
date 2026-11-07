@@ -536,12 +536,12 @@ export const RevisionHubView: React.FC = React.memo(() => {
                   animate={{ rotateY: 0, opacity: 1 }}
                   exit={{ rotateY: 80, opacity: 0 }}
                   transition={{ duration: 0.26, ease: [0.16, 1, 0.3, 1] }}
-                  className="liquid-glass-bento rounded-3xl p-6 sm:p-8 min-h-[340px] flex flex-col justify-between border border-cyan-400/40 bg-slate-900/95 transition-all shadow-[0_0_35px_-5px_rgba(6,182,212,0.3)] relative overflow-hidden select-none group"
+                  className="liquid-glass-bento rounded-3xl p-6 sm:p-8 min-h-[340px] flex flex-col justify-between border border-amber-400/40 bg-slate-900/95 transition-all shadow-[0_0_35px_-5px_rgba(6,182,212,0.3)] relative overflow-hidden select-none group"
                 >
                   {/* Top Bar on Card */}
                   <div className="flex items-center justify-between gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/30">
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30">
                         {activeCard.category} Solution
                       </span>
                       <span className="liquid-glass-pill px-2.5 py-1 rounded-full text-xs text-slate-300">
@@ -574,7 +574,7 @@ export const RevisionHubView: React.FC = React.memo(() => {
 
                   {/* Bottom Bar on Card */}
                   <div className="flex items-center justify-between pt-4 border-t border-white/10">
-                    <div className="text-xs text-cyan-300 flex items-center gap-1">
+                    <div className="text-xs text-amber-300 flex items-center gap-1">
                       <Eye className="w-3.5 h-3.5" />
                       Answer Revealed
                     </div>
