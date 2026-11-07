@@ -788,3 +788,77 @@ body {
 }
 
 
+
+/* ==========================================================================
+   SMOOTH MOTION LAYER — transform/opacity only (GPU-cheap, no layout thrash)
+   ========================================================================== */
+:root {
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-fast: 140ms;
+  --dur-med: 280ms;
+}
+html { scroll-behavior: smooth; }
+
+/* Staggered cascade when a view mounts (backwards fill = no lingering transform) */
+.liquid-view-enter > * { animation: motionRise 460ms var(--ease-out-expo) backwards; }
+.liquid-view-enter > *:nth-child(1) { animation-delay: 0ms; }
+.liquid-view-enter > *:nth-child(2) { animation-delay: 50ms; }
+.liquid-view-enter > *:nth-child(3) { animation-delay: 100ms; }
+.liquid-view-enter > *:nth-child(4) { animation-delay: 150ms; }
+.liquid-view-enter > *:nth-child(n+5) { animation-delay: 200ms; }
+@keyframes motionRise {
+  from { opacity: 0; transform: translate3d(0, 14px, 0) scale(0.99); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Cards: gentle lift + settle on hover */
+@media (hover: hover) {
+  .liquid-glass-bento, .liquid-card-flagship {
+    transition: transform var(--dur-med) var(--ease-out-expo), box-shadow var(--dur-med) ease;
+  }
+  .liquid-glass-bento:hover, .liquid-card-flagship:hover { transform: translate3d(0, -2px, 0); }
+}
+
+/* Buttons: spring press with overshoot on release */
+button, [role="button"], .soft-button {
+  transition: transform var(--dur-med) var(--ease-spring),
+              background-color var(--dur-fast) ease,
+              border-color var(--dur-fast) ease,
+              color var(--dur-fast) ease,
+              box-shadow var(--dur-fast) ease,
+              opacity var(--dur-fast) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) {
+  button:not(:disabled):hover { transform: translate3d(0, -1px, 0); }
+}
+button:not(:disabled):active, [role="button"]:active {
+  transform: scale(0.95) translate3d(0, 0, 0);
+  transition-duration: 60ms;
+}
+
+/* Keyboard focus: soft glowing ring that fades in */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid color-mix(in srgb, currentColor 55%, transparent);
+  outline-offset: 2px;
+  animation: motionFocus 220ms var(--ease-out-expo);
+}
+@keyframes motionFocus { from { outline-offset: 6px; opacity: .85; } to { outline-offset: 2px; opacity: 1; } }
+
+/* Modals / sheets / popovers entrance */
+[role="dialog"], .liquid-glass-sheet { animation: motionPop 320ms var(--ease-out-expo) backwards; }
+@keyframes motionPop {
+  from { opacity: 0; transform: translate3d(0, 10px, 0) scale(0.97); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* Inputs & progress bars glide */
+input, textarea, select { transition: border-color var(--dur-fast) ease, box-shadow var(--dur-med) ease; }
+[role="progressbar"], .progress-fill { transition: width 600ms var(--ease-out-expo), transform 600ms var(--ease-out-expo); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .liquid-view-enter > *, [role="dialog"], .liquid-glass-sheet { animation: none !important; }
+  button, .liquid-glass-bento, .liquid-card-flagship { transition: none !important; transform: none !important; }
+}
