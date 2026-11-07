@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { AcademicNotesSurface } from "@/components/AcademicNotesSurface";
 import {
   CheckCircle2,
   Circle,
@@ -814,26 +815,14 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
           </div>
 
           {/* Personal Late-Night Study Scratchpad Bento */}
-          <div className="liquid-glass-bento rounded-3xl p-5">
-            <div className="flex items-center justify-between mb-2.5">
-              <div className="flex items-center gap-2">
-                <FileEdit className="w-4 h-4 text-sky-300" />
-                <h4 className="text-sm font-bold text-white">
-                  Personal Study Scratchpad ({chapter.displayCode})
-                </h4>
-              </div>
-              <span className="text-[10px] font-mono text-emerald-300">
-                Auto-Saved Locally
-              </span>
-            </div>
-            <textarea
-              value={chapterNotes[chapter.id] || ""}
-              onChange={(e) => setChapterNote(chapter.id, e.target.value)}
-              placeholder={`Jot down your late-night notes, seminar insights, or essay ideas for ${chapter.displayCode}...`}
-              rows={3}
-              className="w-full rounded-2xl p-3 text-xs text-white placeholder-slate-400 bg-black/40 border border-white/15 focus:outline-none focus:border-sky-400/60 resize-y"
-            />
-          </div>
+          <AcademicNotesSurface
+            note={chapterNotes[chapter.id] || ""}
+            onChange={(text) => setChapterNote(chapter.id, text)}
+            title="Personal Study Marginalia"
+            itemCode={chapter.displayCode}
+            minRows={5}
+            accentColor="#06b6d4"
+          />
         </div>
       </div>
     </article>

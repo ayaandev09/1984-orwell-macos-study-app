@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChapterData, THEMES_TAXONOMY } from "@/data";
 import { useStudyStore } from "@/store/useStudyStore";
 import { RecallFlipCard } from "@/components/RecallFlipCard";
+import { AcademicNotesSurface } from "@/components/AcademicNotesSurface";
 import {
   Sparkles,
   Eye,
@@ -362,42 +363,14 @@ export function OrwellRightInspector({
 
           {/* TAB 4: PERSONAL NOTES */}
           {activeTab === "notes" && (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[10px] uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
-                  <Edit3 className="w-3.5 h-3.5" />
-                  Chapter Analytical Notes
-                </span>
-                <button
-                  onClick={handleCopyNote}
-                  className="flex items-center gap-1 text-[10px] font-mono text-slate-400 hover:text-white transition-colors cursor-pointer"
-                >
-                  {copiedNote ? (
-                    <>
-                      <Check className="w-3 h-3 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3 h-3" />
-                      <span>Copy</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <textarea
-                value={userNote}
-                onChange={(e) => setChapterNote(chapter.id, e.target.value)}
-                placeholder="Draft topic sentences, Orwellian allegorical links, or class quotes for this chapter..."
-                rows={10}
-                className="w-full rounded-2xl bg-black/40 border border-white/10 p-3 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-amber-400/50 resize-none font-sans leading-relaxed"
-              />
-
-              <p className="text-[10px] text-slate-400 font-mono">
-                💾 Auto-saved to local encrypted storage. Persists across sessions.
-              </p>
-            </div>
+            <AcademicNotesSurface
+              note={userNote}
+              onChange={(text) => setChapterNote(chapter.id, text)}
+              title="Chapter Analytical Notes"
+              itemCode={chapter.displayCode}
+              minRows={10}
+              accentColor="#06b6d4"
+            />
           )}
         </div>
       </div>

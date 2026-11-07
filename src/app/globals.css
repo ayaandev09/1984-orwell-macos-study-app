@@ -914,3 +914,18 @@ input, textarea, select { transition: border-color var(--dur-fast) ease, box-sha
 @media (prefers-reduced-motion: reduce) {
   .mac-dashboard-shell.app-revealed > .relative.z-10 > * { animation: none !important; }
 }
+
+/* ===== Academic Handwritten Marginalia & Notes ===== */
+.font-academic-hand {
+  font-family: 'Caveat', 'Kalam', 'Noteworthy', 'Snell Roundhand', 'Chalkboard', cursive, sans-serif !important;
+  font-feature-settings: "calt" 1, "liga" 1;
+}
+
+.academic-notebook-surface {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 27px,
+    rgba(255, 255, 255, 0.06) 28px
+  );
+  line-height: 28px !important;
+}
