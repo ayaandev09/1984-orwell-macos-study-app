@@ -862,3 +862,18 @@ input, textarea, select { transition: border-color var(--dur-fast) ease, box-sha
   .liquid-view-enter > *, [role="dialog"], .liquid-glass-sheet { animation: none !important; }
   button, .liquid-glass-bento, .liquid-card-flagship { transition: none !important; transform: none !important; }
 }
+
+/* ===== Gentle app-open reveal: panels rise & fade in, staggered ===== */
+.mac-dashboard-shell.app-revealed > .relative.z-10 > * {
+  animation: appOpenRise 900ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) backwards;
+}
+.mac-dashboard-shell.app-revealed > .relative.z-10 > *:nth-child(1) { animation-delay: 0ms; }
+.mac-dashboard-shell.app-revealed > .relative.z-10 > *:nth-child(2) { animation-delay: 120ms; }
+.mac-dashboard-shell.app-revealed > .relative.z-10 > *:nth-child(3) { animation-delay: 240ms; }
+@keyframes appOpenRise {
+  from { opacity: 0; transform: translate3d(0, 24px, 0) scale(0.985); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mac-dashboard-shell.app-revealed > .relative.z-10 > * { animation: none !important; }
+}

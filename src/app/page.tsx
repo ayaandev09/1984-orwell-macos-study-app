@@ -206,12 +206,12 @@ export default function Orwell1984LiquidShellPage() {
 
       {/* 2. Main Study Dashboard - Fluid Liquid Glass Reveal */}
       <div
-        className={`mac-dashboard-shell transition-all duration-1000 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`mac-dashboard-shell ${showMainUI ? "app-revealed" : ""} transition-opacity duration-700 ease-out ${
           telescreenMode ? "telescreen-glow" : ""
         } ${
           showMainUI
-            ? "opacity-100 scale-100 filter-none pointer-events-auto"
-            : "opacity-75 scale-[0.985] blur-[6px] pointer-events-none select-none"
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none select-none"
         }`}
       >
         <AmbientAuroraCanvas />
