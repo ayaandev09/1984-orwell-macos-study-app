@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ChapterData, THEMES_TAXONOMY } from "@/data";
 import { useStudyStore } from "@/store/useStudyStore";
 import { RecallFlipCard } from "@/components/RecallFlipCard";
@@ -62,31 +61,20 @@ export function OrwellRightInspector({
   };
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.aside
-          key="orwell-analytical-inspector"
-          initial={{ opacity: 0, x: 36, y: -16, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-          exit={{
-            opacity: 0,
-            x: 44,
-            y: -32,
-            scale: 0.92,
-            transition: {
-              duration: 0.26,
-              ease: [0.16, 1, 0.3, 1],
-            },
-          }}
-          transition={{
-            duration: 0.32,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-          style={{ willChange: "transform, opacity" }}
-          data-tour="inspector"
-          className="w-80 lg:w-88 shrink-0 sticky top-3 select-none overflow-hidden transition-all z-10"
-        >
-          <div className="liquid-glass-bento rounded-3xl p-4 border border-amber-500/35 bg-slate-950/85 backdrop-blur-2xl shadow-2xl flex flex-col max-h-[calc(100vh-1.5rem)] overflow-hidden">
+    <aside
+      data-tour="inspector"
+      className={`shrink-0 sticky top-3 select-none overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] z-10 ${
+        !isOpen
+          ? "w-0 max-w-0 p-0 -ml-4 xl:-ml-5 border-0 opacity-0 pointer-events-none"
+          : "w-80 lg:w-88 p-0 opacity-100"
+      }`}
+    >
+      <div
+        className={`w-80 lg:w-88 shrink-0 transition-opacity duration-200 ${
+          !isOpen ? "opacity-0 pointer-events-none invisible" : "opacity-100 visible"
+        }`}
+      >
+        <div className="liquid-glass-bento rounded-3xl p-4 border border-amber-500/35 bg-slate-950/85 backdrop-blur-2xl shadow-2xl flex flex-col max-h-[calc(100vh-1.5rem)] overflow-hidden">
             {/* Top Header */}
             <div className="flex items-center justify-between gap-2 pb-2.5 mb-3 border-b border-white/10 shrink-0 min-h-[44px]">
               <div className="flex items-center gap-2 min-w-0">
@@ -374,8 +362,7 @@ export function OrwellRightInspector({
           )}
         </div>
       </div>
-    </motion.aside>
-  )}
-</AnimatePresence>
+    </div>
+  </aside>
   );
 }

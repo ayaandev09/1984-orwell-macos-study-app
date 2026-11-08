@@ -221,7 +221,10 @@ export default function Orwell1984LiquidShellPage() {
         <FloatingSidebar isMobileSheet={false} />
 
         {/* Right Main Content Workspace */}
-        <main className="flex-1 min-w-0 w-full pb-36">
+        <main
+          className="flex-1 min-w-0 w-full pb-36 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          style={{ containerType: "inline-size" }}
+        >
           {/* Top Command & View Switcher Bar */}
           <WidgetBridge />
           <TopCommandBar onOpenWalkthrough={() => setIsWalkthroughOpen(true)} />

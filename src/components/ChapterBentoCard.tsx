@@ -403,10 +403,10 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         </div>
       )}
 
-      {/* ==================== BENTO ROW 1: SUMMARY & THEME TRACKING (DESKTOP MULTI-COLUMN) ==================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      {/* ==================== BENTO ROW 1: SUMMARY & THEME TRACKING (ADAPTIVE WORKSPACE) ==================== */}
+      <div className="bento-adaptive-12">
         {/* Summary & Speed-Read Bullets (7 Cols) */}
-        <div className="lg:col-span-7 liquid-glass-bento rounded-3xl p-5 sm:p-6 flex flex-col justify-between">
+        <div className="bento-span-7 liquid-glass-bento rounded-3xl p-5 sm:p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
@@ -478,7 +478,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         </div>
 
         {/* Theme Tracking Bento (5 Cols) */}
-        <div className="lg:col-span-5 liquid-glass-bento rounded-3xl p-5 sm:p-6 flex flex-col justify-between">
+        <div className="bento-span-5 liquid-glass-bento rounded-3xl p-5 sm:p-6 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="p-2 rounded-xl bg-rose-500/20 border border-rose-400/30 text-rose-300">
@@ -671,10 +671,10 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         chapterCode={chapter.displayCode}
       />
 
-      {/* ==================== BENTO ROW 3: DEEP ANALYSIS & KEY QUOTES ==================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+      {/* ==================== BENTO ROW 3: DEEP ANALYSIS & KEY QUOTES (ADAPTIVE WORKSPACE) ==================== */}
+      <div className="bento-adaptive-12">
         {/* Multi-Source Synthesis Analysis (6 Cols) */}
-        <div className="lg:col-span-6 liquid-glass-bento rounded-3xl p-5 sm:p-6 space-y-4">
+        <div className="bento-span-6 liquid-glass-bento rounded-3xl p-5 sm:p-6 space-y-4">
           <div className="flex items-center gap-2.5">
             <span className="p-2 rounded-xl bg-purple-500/20 border border-purple-400/30 text-purple-300">
               <GraduationCap className="w-4 h-4" />
@@ -738,7 +738,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         </div>
 
         {/* Key Quotes & Study Scratchpad (6 Cols) */}
-        <div className="lg:col-span-6 flex flex-col gap-4">
+        <div className="bento-span-6 flex flex-col gap-4">
           <div className="liquid-glass-bento rounded-3xl p-5 sm:p-6 flex-1">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2.5">

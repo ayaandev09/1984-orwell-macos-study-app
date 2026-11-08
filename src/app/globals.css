@@ -315,7 +315,7 @@ blockquote,
   transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1),
               border-color 0.25s ease,
               box-shadow 0.3s ease;
-  will-change: transform;
+  contain: layout paint;
 }
 
 .liquid-glass-bento:hover,
@@ -412,7 +412,6 @@ blockquote,
               background-color 0.15s ease,
               border-color 0.2s ease,
               box-shadow 0.2s ease;
-  will-change: transform;
 }
 
 .liquid-glass-pill:hover,
@@ -835,7 +834,7 @@ body {
   --dur-fast: 140ms;
   --dur-med: 280ms;
 }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: auto; }
 
 /* Staggered cascade when a view mounts (backwards fill = no lingering transform) */
 .liquid-view-enter > * > *, .liquid-view-enter > * { animation: motionRise 460ms var(--ease-out-expo) backwards; }
@@ -914,6 +913,76 @@ input, textarea, select { transition: border-color var(--dur-fast) ease, box-sha
 @media (prefers-reduced-motion: reduce) {
   .mac-dashboard-shell.app-revealed > .relative.z-10 > * { animation: none !important; }
 }
+
+/* ==========================================================================
+   CONTAINER QUERIES FOR ADAPTIVE BENTO WORKSPACES
+   Smoothly reflows bento grids when left/right sidebars collapse or expand
+   ========================================================================== */
+@container (min-width: 860px) {
+  .bento-adaptive-12 {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  .bento-span-7 {
+    grid-column: span 7 / span 7 !important;
+  }
+  .bento-span-5 {
+    grid-column: span 5 / span 5 !important;
+  }
+  .bento-span-6 {
+    grid-column: span 6 / span 6 !important;
+  }
+  .bento-adaptive-4 {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.875rem !important;
+  }
+  .bento-adaptive-3 {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.875rem !important;
+  }
+}
+
+@container (min-width: 580px) and (max-width: 859px) {
+  .bento-adaptive-12 {
+    display: grid !important;
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    gap: 1rem !important;
+  }
+  .bento-span-7, .bento-span-5, .bento-span-6 {
+    grid-column: span 1 / span 1 !important;
+    width: 100% !important;
+  }
+  .bento-adaptive-4 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.875rem !important;
+  }
+  .bento-adaptive-3 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.875rem !important;
+  }
+}
+
+@container (max-width: 579px) {
+  .bento-adaptive-12 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .bento-span-7, .bento-span-5, .bento-span-6 {
+    width: 100% !important;
+  }
+  .bento-adaptive-4, .bento-adaptive-3 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.875rem !important;
+  }
+}
+
 
 /* ===== Academic Handwritten Marginalia & Notes ===== */
 .font-academic-hand {
