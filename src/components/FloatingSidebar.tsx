@@ -374,11 +374,19 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = React.memo(({
   return (
     <aside
       data-tour="sidebar"
-      className={`hidden lg:flex shrink-0 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] flex-col liquid-glass-sidebar rounded-3xl p-4 overflow-hidden select-none z-20 transition-all duration-300 ${
-        sidebarCollapsed ? "w-20 items-center px-2" : "w-64 xl:w-72"
+      className={`hidden lg:flex shrink-0 lg:sticky lg:top-5 lg:h-[calc(100vh-2.5rem)] flex-col liquid-glass-sidebar rounded-3xl overflow-hidden select-none z-20 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        sidebarCollapsed
+          ? "w-0 max-w-0 p-0 -mr-5 border-0 opacity-0 pointer-events-none"
+          : "w-64 xl:w-72 p-4 opacity-100"
       }`}
     >
-      {content}
+      <div
+        className={`w-64 xl:w-72 flex flex-col h-full min-h-0 shrink-0 transition-opacity duration-200 ${
+          sidebarCollapsed ? "opacity-0 pointer-events-none invisible" : "opacity-100 visible"
+        }`}
+      >
+        {content}
+      </div>
     </aside>
   );
 });
