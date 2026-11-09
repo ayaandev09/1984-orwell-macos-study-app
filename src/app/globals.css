@@ -987,51 +987,43 @@ input, textarea, select { transition: border-color var(--dur-fast) ease, box-sha
 }
 
 /* ============================================================================
-   COMFORTABLE ACADEMIC TYPOGRAPHY ENGINE (SUITE-WIDE GENEROUS UPGRADE)
-   - Elevates base font size from 16px to 18px (up to 19px on larger displays)
-   - Guarantees minimum 0.88rem (~16px) for every tiny badge, chip, and meta tag
-   - Boosts all text utilities (text-xs, text-sm, text-base, headings)
+   FLUID AUTO-ADJUSTING ACADEMIC TYPOGRAPHY ENGINE (SUITE-WIDE)
+   - Continuously scales font-size using CSS clamp() based on dynamic viewport width
+   - Smoothly reflows between 15.5px (compact windows/split screen) and 17.5px (wide desktop)
+   - Calibrated for comfortable, golden-ratio legibility without visual bulk
    ============================================================================ */
 :root {
-  font-size: 17.5px;
+  /* Fluid root base: 15.5px at 390px viewport -> 17.5px at 1440px+ viewport */
+  font-size: clamp(15.5px, 14.5px + 0.35vw, 17.5px);
 }
 
-@media (min-width: 1024px) {
-  :root {
-    font-size: 18.5px;
-  }
-}
+/* Fluid auto-adjusting micro utilities (badges, chips, timestamps, code chips) */
+[class*="text-[7px]"], .text-\[7px\] { font-size: clamp(0.72rem, 0.68rem + 0.1vw, 0.78rem) !important; }
+[class*="text-[8px]"], .text-\[8px\] { font-size: clamp(0.75rem, 0.71rem + 0.1vw, 0.81rem) !important; }
+[class*="text-[9px]"], .text-\[9px\] { font-size: clamp(0.78rem, 0.74rem + 0.1vw, 0.84rem) !important; }
+[class*="text-[10px]"], .text-\[10px\] { font-size: clamp(0.81rem, 0.77rem + 0.12vw, 0.88rem) !important; }
+[class*="text-[11px]"], .text-\[11px\] { font-size: clamp(0.85rem, 0.81rem + 0.12vw, 0.92rem) !important; }
+[class*="text-[12px]"], .text-\[12px\] { font-size: clamp(0.88rem, 0.84rem + 0.12vw, 0.94rem) !important; }
 
-@media (min-width: 1440px) {
-  :root {
-    font-size: 19px;
-  }
-}
+/* Fluid auto-adjusting semantic utilities */
+.text-xs, [class*="text-xs"] { font-size: clamp(0.84rem, 0.80rem + 0.12vw, 0.90rem) !important; }
+.text-sm, [class*="text-sm"] { font-size: clamp(0.92rem, 0.88rem + 0.14vw, 0.98rem) !important; }
+.text-base, [class*="text-base"] { font-size: clamp(1.00rem, 0.96rem + 0.15vw, 1.08rem) !important; }
+.text-lg, [class*="text-lg"] { font-size: clamp(1.12rem, 1.06rem + 0.20vw, 1.22rem) !important; }
+.text-xl, [class*="text-xl"] { font-size: clamp(1.25rem, 1.18rem + 0.25vw, 1.38rem) !important; }
+.text-2xl, [class*="text-2xl"] { font-size: clamp(1.50rem, 1.40rem + 0.35vw, 1.68rem) !important; }
+.text-3xl, [class*="text-3xl"] { font-size: clamp(1.85rem, 1.70rem + 0.45vw, 2.10rem) !important; }
 
-/* Micro-utilities elevation (badges, labels, chips, timestamps, pill metrics) */
-[class*="text-[7px]"], .text-\[7px\] { font-size: 0.82rem !important; }
-[class*="text-[8px]"], .text-\[8px\] { font-size: 0.85rem !important; }
-[class*="text-[9px]"], .text-\[9px\] { font-size: 0.88rem !important; }
-[class*="text-[10px]"], .text-\[10px\] { font-size: 0.92rem !important; }
-[class*="text-[11px]"], .text-\[11px\] { font-size: 0.96rem !important; }
-[class*="text-[12px]"], .text-\[12px\] { font-size: 0.98rem !important; }
-
-/* Tailwind semantic utility classes */
-.text-xs, [class*="text-xs"] { font-size: 0.95rem !important; }
-.text-sm, [class*="text-sm"] { font-size: 1.05rem !important; }
-.text-base, [class*="text-base"] { font-size: 1.15rem !important; }
-.text-lg, [class*="text-lg"] { font-size: 1.28rem !important; }
-.text-xl, [class*="text-xl"] { font-size: 1.45rem !important; }
-.text-2xl, [class*="text-2xl"] { font-size: 1.78rem !important; }
-.text-3xl, [class*="text-3xl"] { font-size: 2.25rem !important; }
-
-/* Ensure comfortable line heights & reading rhythm */
+/* Naturally wrapping containers with fluid rhythm */
 p, blockquote, .academic-prose, article {
-  line-height: 1.68 !important;
-  letter-spacing: 0.01em;
+  line-height: 1.62 !important;
+  letter-spacing: 0.008em;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
-/* KaTeX mathematical and scientific typography */
+/* Mathematical and scientific KaTeX expressions */
 .katex-formula-wrapper, .katex {
-  font-size: 1.12em !important;
+  font-size: 1.04em !important;
+  max-width: 100%;
 }
