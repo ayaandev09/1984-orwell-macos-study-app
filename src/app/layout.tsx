@@ -5,7 +5,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#05070f",
+  themeColor: "#060402",
 };
 
 export const metadata: Metadata = {
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" data-academic-font="newsreader" data-handwritten-style="newsreader">
+    <html lang="en" className="dark" data-academic-font="jakarta" data-handwritten-style="newsreader">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
@@ -38,7 +38,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased selection:bg-sky-500/30 selection:text-sky-100">
+      <body className="antialiased bg-[#060402] selection:bg-amber-500/30 selection:text-amber-100">
         {children}
       </body>
     </html>

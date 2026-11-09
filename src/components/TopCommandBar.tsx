@@ -186,16 +186,16 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
             <button
               onClick={triggerDiagnostics}
               title="Click to run live Minitrue System Diagnostics"
-              className="w-9 h-9 rounded-xl bg-gradient-to-br from-sky-400/25 via-indigo-500/20 to-rose-500/25 border border-sky-400/40 flex items-center justify-center p-1 shadow-md relative cursor-pointer active:scale-95 transition-all overflow-hidden shrink-0"
+              className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400/25 via-rose-500/20 to-amber-600/25 border border-amber-400/40 flex items-center justify-center p-1 shadow-md relative cursor-pointer active:scale-95 transition-all overflow-hidden shrink-0"
             >
               <OrwellAppLogo className="w-full h-full object-contain" />
               <span className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping pointer-events-none" />
             </button>
             <div className="leading-tight min-w-0">
-              <span className="text-[10px] font-mono font-bold tracking-wider text-sky-400 uppercase truncate block">
+              <span className="text-xs font-mono font-bold tracking-wider text-amber-400 uppercase truncate block">
                 MINITRUE
               </span>
-              <span className="text-[11px] font-semibold text-white tracking-tight truncate block">
+              <span className="text-xs font-semibold text-white tracking-tight truncate block">
                 1984 Codex
               </span>
             </div>
@@ -216,7 +216,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
             <button
               onClick={() => setStudyGoal(studyGoal === "revise" ? "learn" : "revise")}
               title={`Active Mode: ${studyGoal === "revise" ? "Revision (Sprint)" : "Study (Deep)"}. Tap to toggle.`}
-              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-[11px] font-bold border transition-all cursor-pointer active:scale-95 ${
+              className={`flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold border transition-all cursor-pointer active:scale-95 ${
                 studyGoal === "revise"
                   ? "bg-amber-500/20 text-amber-300 border-amber-400/50 shadow-sm"
                   : "bg-emerald-500/20 text-emerald-300 border-emerald-400/50 shadow-sm"
@@ -241,7 +241,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               title="Browse All 24 Chapters"
               className="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white active:scale-90 transition-all cursor-pointer"
             >
-              <ListFilter className="w-4 h-4 text-sky-300" />
+              <ListFilter className="w-4 h-4 text-amber-400" />
             </button>
 
             {/* Search Trigger Button */}
@@ -289,14 +289,14 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               title="Click to run live Minitrue System Diagnostics"
               className="flex items-center gap-2 min-w-0 text-left cursor-pointer group"
             >
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400/25 via-indigo-500/20 to-rose-500/25 border border-sky-400/40 flex items-center justify-center p-1 shadow-md relative shrink-0 group-hover:scale-105 transition-transform overflow-hidden">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400/25 via-rose-500/20 to-amber-600/25 border border-amber-400/40 flex items-center justify-center p-1 shadow-md relative shrink-0 group-hover:scale-105 transition-transform overflow-hidden">
                 <OrwellAppLogo className="w-full h-full object-contain" />
               </div>
               <div className="min-w-0 leading-tight">
-                <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-sky-400 uppercase block truncate">
+                <span className="text-[10px] sm:text-xs font-mono font-bold tracking-[0.18em] text-amber-400 uppercase block truncate">
                   MINITRUE // 1984
                 </span>
-                <span className="text-xs font-semibold text-white tracking-tight truncate block">
+                <span className="text-xs sm:text-sm font-semibold text-white tracking-tight truncate block">
                   Oceania Codex
                 </span>
               </div>
@@ -312,8 +312,8 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-black/50 hover:bg-black/70 border border-white/10 hover:border-amber-400/40 text-slate-300 hover:text-white cursor-pointer transition-all shrink-0"
             >
               <Search className="w-3.5 h-3.5 text-amber-400" />
-              <span className="text-[11px] font-medium text-slate-300 hidden md:inline">Search</span>
-              <kbd className="inline-flex items-center px-1 py-0.2 rounded text-[9px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-400/25">
+              <span className="text-xs font-medium text-slate-300 hidden md:inline">Search</span>
+              <kbd className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono font-bold text-amber-300 bg-amber-500/15 border border-amber-400/25">
                 ⌘K
               </kbd>
             </button>
@@ -330,7 +330,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                 }`}
               >
                 <Zap className="w-3 h-3 text-amber-300" />
-                <span className="text-[11px]">Revise</span>
+                <span className="text-xs">Revise</span>
               </button>
               <button
                 onClick={() => setStudyGoal("learn")}
@@ -342,7 +342,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                 }`}
               >
                 <BookOpen className="w-3 h-3 text-emerald-300" />
-                <span className="text-[11px]">Study</span>
+                <span className="text-xs">Study</span>
               </button>
             </div>
 
@@ -353,7 +353,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border bg-amber-500/15 text-amber-200 border-amber-400/35 hover:bg-amber-500/25 shadow-sm soft-button shrink-0"
             >
               <Timer className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
-              <span className="text-[10px] font-mono text-amber-400/70">⌘E</span>
+              <span className="text-xs font-mono font-bold text-amber-300">⌘E</span>
             </button>
 
             {/* Telescreen CRT Surveillance Mode Toggle */}
@@ -367,7 +367,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               }`}
             >
               <Radio className={`w-3.5 h-3.5 ${telescreenMode ? "text-rose-400" : "text-slate-400"}`} />
-              <span className="text-[11px]">CRT</span>
+              <span className="text-xs">CRT</span>
             </button>
 
             {/* Pro Analytical Inspector Toggle Pill (Shown only when tucked away to prevent collision) */}
@@ -375,10 +375,10 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
               <button
                 onClick={toggleInspector}
                 title="Open Analytical Inspector (⌘I)"
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border soft-button shrink-0 bg-amber-500/15 text-amber-200 hover:text-white border-amber-400/50 hover:border-amber-300 shadow-[0_0_18px_rgba(6,182,212,0.35)] tucked-pill-beacon-cyan"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer border soft-button shrink-0 bg-amber-500/15 text-amber-200 hover:text-white border-amber-400/50 hover:border-amber-300 shadow-[0_0_18px_rgba(245,158,11,0.35)] tucked-pill-beacon"
               >
                 <Eye className="w-3.5 h-3.5 text-amber-300" />
-                <span className="text-[10px] font-mono text-amber-400/80">⌘I</span>
+                <span className="text-xs font-mono font-bold text-amber-300">⌘I</span>
               </button>
             )}
 
@@ -417,7 +417,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
                   <motion.div
                     layoutId="activeNavTabIndicator"
                     transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                    className="absolute inset-0 rounded-xl bg-amber-500/25 border border-amber-400/50 shadow-md shadow-cyan-500/20 pointer-events-none"
+                    className="absolute inset-0 rounded-xl bg-amber-500/25 border border-amber-400/50 shadow-md shadow-amber-500/20 pointer-events-none"
                   />
                 )}
                 <span className={`relative z-10 ${isActive ? "text-amber-300 shrink-0" : "text-slate-400 shrink-0"}`}>
@@ -434,7 +434,7 @@ export const TopCommandBar: React.FC<TopCommandBarProps> = React.memo(({
           isOpen={isShortcutsOpen}
           onClose={() => setIsShortcutsOpen(false)}
           appName="Orwell 1984 Codex"
-          accentColor="#0ea5e9"
+          accentColor="#d97706"
           onOpenTour={onOpenWalkthrough}
         />
       </header>

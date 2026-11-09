@@ -31,7 +31,7 @@ export function KeyboardShortcutsModal({
   isOpen,
   onClose,
   appName = "Orwell 1984 Study Codex",
-  accentColor = "#0ea5e9",
+  accentColor = "#d97706",
   onOpenTour,
 }: KeyboardShortcutsModalProps) {
   const [mounted, setMounted] = useState(false);
@@ -88,10 +88,10 @@ export function KeyboardShortcutsModal({
               </span>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-mono font-bold tracking-[0.2em] uppercase text-sky-400">
+                  <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-amber-400">
                     MAC NATIVE ACCELERATORS
                   </span>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/10 text-slate-300 border border-white/15">
+                  <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-white/10 text-slate-300 border border-white/15">
                     Pro Shortcuts
                   </span>
                 </div>
@@ -114,16 +114,16 @@ export function KeyboardShortcutsModal({
           <div className="space-y-4 max-h-[65vh] overflow-y-auto no-scrollbar pr-1">
             {/* Section 1: Global Commands */}
             <div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2 px-1">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2 px-1">
                 🌐 Navigation &amp; Workspace
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.04] border border-white/10">
                   <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <Search className="w-3.5 h-3.5 text-sky-400" />
+                    <Search className="w-3.5 h-3.5 text-amber-400" />
                     <span>Global Search &amp; Jump</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">⌘</kbd>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">K</kbd>
                     <span className="text-slate-500 mx-0.5">or</span>
@@ -136,7 +136,7 @@ export function KeyboardShortcutsModal({
                     <Eye className="w-3.5 h-3.5 text-amber-400" />
                     <span>Toggle Pro Inspector</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">⌘</kbd>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">I</kbd>
                   </div>
@@ -147,7 +147,7 @@ export function KeyboardShortcutsModal({
                     <Timer className="w-3.5 h-3.5 text-amber-400" />
                     <span>Timed Exam Sprint</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">⌘</kbd>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">E</kbd>
                   </div>
@@ -155,10 +155,10 @@ export function KeyboardShortcutsModal({
 
                 <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.04] border border-white/10">
                   <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <Layers className="w-3.5 h-3.5 text-indigo-400" />
+                    <Layers className="w-3.5 h-3.5 text-amber-400" />
                     <span>Switch Views (1 to 5)</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">1</kbd>
                     <span className="text-slate-500">➔</span>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">5</kbd>
@@ -169,7 +169,7 @@ export function KeyboardShortcutsModal({
 
             {/* Section 2: Active Recall & Flashcards */}
             <div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2 px-1">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-400 block mb-2 px-1">
                 ⚡ Active Recall Flashcards
               </span>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -178,7 +178,7 @@ export function KeyboardShortcutsModal({
                     <Sparkles className="w-3.5 h-3.5 text-amber-400" />
                     <span>Flip Flashcard (3D)</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-2 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">Space</kbd>
                     <span className="text-slate-500">/</span>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">↵</kbd>
@@ -190,7 +190,7 @@ export function KeyboardShortcutsModal({
                     <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Previous / Next Card</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">←</kbd>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">→</kbd>
                   </div>
@@ -198,10 +198,10 @@ export function KeyboardShortcutsModal({
 
                 <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.04] border border-white/10">
                   <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <ArrowUp className="w-3.5 h-3.5 text-sky-400" />
+                    <ArrowUp className="w-3.5 h-3.5 text-amber-400" />
                     <span>Mark Mastered / Known</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">↑</kbd>
                     <span className="text-slate-500">or</span>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">M</kbd>
@@ -210,10 +210,10 @@ export function KeyboardShortcutsModal({
 
                 <div className="flex items-center justify-between p-3 rounded-2xl bg-white/[0.04] border border-white/10">
                   <div className="flex items-center gap-2 text-xs text-slate-200">
-                    <Keyboard className="w-3.5 h-3.5 text-purple-400" />
+                    <Keyboard className="w-3.5 h-3.5 text-amber-400" />
                     <span>This Shortcuts Sheet</span>
                   </div>
-                  <div className="flex items-center gap-1 font-mono text-[11px]">
+                  <div className="flex items-center gap-1 font-mono text-xs">
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">?</kbd>
                     <span className="text-slate-500">/</span>
                     <kbd className="px-1.5 py-0.5 rounded-md bg-white/10 border border-white/20 text-white shadow-sm">Esc</kbd>
@@ -237,8 +237,8 @@ export function KeyboardShortcutsModal({
                 <span>Launch Interactive Tour</span>
               </button>
             ) : (
-              <span className="text-slate-400 font-mono text-[11px]">
-                Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 border border-white/20 text-white text-[10px]">Esc</kbd> to dismiss
+              <span className="text-slate-400 font-mono text-xs">
+                Press <kbd className="px-1.5 py-0.5 rounded bg-white/10 border border-white/20 text-white text-xs">Esc</kbd> to dismiss
               </span>
             )}
             <button

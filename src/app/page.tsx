@@ -96,6 +96,21 @@ export default function Orwell1984LiquidShellPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleInspector, toggleExamSprint]);
 
+  // Fluid responsive adaptation: Auto-collapse inspector on screens below 1280px to avoid 3-column squeeze
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const handleResize = () => {
+      if (window.innerWidth < 1280 && isInspectorOpen) {
+        toggleInspector();
+      }
+    };
+    if (window.innerWidth < 1280 && isInspectorOpen) {
+      toggleInspector();
+    }
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isInspectorOpen, toggleInspector]);
+
   // Live Sync and URL Payload Hydration
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -206,7 +221,7 @@ export default function Orwell1984LiquidShellPage() {
 
       {/* 2. Main Study Dashboard - Fluid Liquid Glass Reveal */}
       <div
-        className={`mac-dashboard-shell ${showMainUI ? "app-revealed" : ""} transition-opacity duration-700 ease-out ${
+        className={`relative min-h-screen w-full bg-[#060402] overflow-x-hidden text-slate-100 ${showMainUI ? "app-revealed" : ""} transition-opacity duration-700 ease-out ${
           telescreenMode ? "telescreen-glow" : ""
         } ${
           showMainUI
@@ -216,13 +231,13 @@ export default function Orwell1984LiquidShellPage() {
       >
         <AmbientAuroraCanvas />
         {/* ==================== MAIN SHELL CONTAINER ==================== */}
-      <div className="relative z-10 w-full flex flex-col lg:flex-row gap-5 items-start">
+      <div className="w-full max-w-[1720px] mx-auto p-2.5 sm:p-4 flex gap-4 xl:gap-5 items-start mac-dashboard-shell relative z-10">
         {/* Left Floating Sidebar */}
         <FloatingSidebar isMobileSheet={false} />
 
         {/* Right Main Content Workspace */}
         <main
-          className="flex-1 min-w-0 w-full pb-36 transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+          className="flex-1 min-w-0 w-full pb-36 flex flex-col transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
           style={{ containerType: "inline-size" }}
         >
           {/* Top Command & View Switcher Bar */}
@@ -241,11 +256,11 @@ export default function Orwell1984LiquidShellPage() {
                 <div className="liquid-glass-bento rounded-3xl p-5 mb-5 border border-white/15 shadow-xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] backdrop-blur-xl space-y-3">
                   <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="p-2 rounded-xl bg-sky-500/20 text-sky-300 border border-sky-400/30 shrink-0">
+                      <div className="p-2 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/30 shrink-0">
                         <BookOpen className="w-4 h-4" />
                       </div>
                       <div className="min-w-0">
-                        <span className="text-[10px] font-mono font-bold tracking-wider text-sky-400 uppercase block">
+                        <span className="text-xs font-mono font-bold tracking-wider text-amber-400 uppercase block">
                           Book Part Overview
                         </span>
                         <h2 className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
@@ -253,7 +268,7 @@ export default function Orwell1984LiquidShellPage() {
                         </h2>
                       </div>
                     </div>
-                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-sky-400/15 text-sky-300 border border-sky-400/30 shrink-0">
+                    <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-400/15 text-amber-300 border border-amber-400/30 shrink-0">
                       {activeBookPart.chapters.length} Chapters
                     </span>
                   </div>
@@ -305,7 +320,7 @@ export default function Orwell1984LiquidShellPage() {
                       <div className="text-base sm:text-lg font-bold text-white">
                         {nextChapter.displayCode}: {nextChapter.title}
                       </div>
-                      <div className="text-xs text-sky-300">
+                      <div className="text-xs text-amber-300">
                         {nextChapter.subtitle}
                       </div>
                     </div>
@@ -336,7 +351,7 @@ export default function Orwell1984LiquidShellPage() {
                         entranceBlur={10}
                         entranceDistance={20}
                         entranceScale={0.65}
-                        className="!min-w-[240px] !h-12 !px-6 !text-xs font-bold shadow-xl cursor-pointer"
+                        className="w-full sm:w-auto min-w-[200px] !h-12 !px-6 !text-xs font-bold shadow-xl cursor-pointer"
                       >
                         <CheckCircle2 className="w-4 h-4 text-emerald-300 mr-2" />
                         <span>Complete {activeChapter.displayCode} &amp; Continue</span>
@@ -360,7 +375,7 @@ export default function Orwell1984LiquidShellPage() {
                     </h2>
                     <p className="text-xs text-slate-400">
                       All chapters rendered in a continuous stream with WebKit GPU &amp;{" "}
-                      <code className="text-sky-300">content-visibility: auto</code>{" "}
+                      <code className="text-amber-300">content-visibility: auto</code>{" "}
                       off-screen optimization
                     </p>
                   </div>
@@ -379,7 +394,7 @@ export default function Orwell1984LiquidShellPage() {
                         onClick={() => setActivePartFilter(tab.id)}
                         className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                           activePartFilter === tab.id
-                            ? "bg-sky-500/30 text-white border border-sky-400/50"
+                            ? "bg-amber-500/25 text-amber-200 border border-amber-400/40 shadow-sm"
                             : "liquid-glass-pill text-slate-300 hover:text-white"
                         }`}
                       >

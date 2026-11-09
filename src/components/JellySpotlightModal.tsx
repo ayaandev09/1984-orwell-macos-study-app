@@ -116,7 +116,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="jelly-spotlight-enter w-full max-w-3xl liquid-card-flagship rounded-3xl p-5 border border-amber-400/40 bg-[#030914]/95 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.95),0_0_50px_rgba(6,182,212,0.2)] flex flex-col max-h-[82vh] overflow-hidden"
+        className="jelly-spotlight-enter w-full max-w-3xl liquid-card-flagship rounded-3xl p-5 border border-amber-400/40 bg-[#060402]/95 backdrop-blur-3xl shadow-[0_32px_80px_rgba(0,0,0,0.95),0_0_50px_rgba(217,119,6,0.2)] flex flex-col max-h-[82vh] overflow-hidden"
       >
         {/* Header: Unified Single Spotlight Search Bar */}
         <div className="relative w-full mb-3 shrink-0">
@@ -127,7 +127,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search all 24 chapters, iconic quotes ('2+2=5', 'War is Peace'), Newspeak, Room 101..."
-            className="w-full pl-12 pr-24 py-3 rounded-2xl bg-black/60 border border-amber-400/35 focus:border-amber-400 text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400/20 transition-all font-sans"
+            className="w-full pl-12 pr-24 py-3 rounded-2xl bg-black/60 border border-amber-400/35 focus:border-amber-400 text-sm sm:text-base text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20 transition-all font-sans"
           />
           <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
             {query && (
@@ -139,7 +139,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
                 <X className="w-4 h-4" />
               </button>
             )}
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-mono text-amber-300 bg-amber-500/15 border border-amber-400/30">
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-mono text-amber-300 bg-amber-500/15 border border-amber-400/30">
               <kbd className="font-sans text-xs">esc</kbd>
             </span>
           </div>
@@ -187,7 +187,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
                     onMouseEnter={() => setSelectedIndex(idx)}
                     className={`w-full text-left p-3.5 rounded-2xl transition-all cursor-pointer flex items-center justify-between gap-4 border ${
                       isSelected
-                        ? "bg-amber-500/15 border-amber-400/50 shadow-lg shadow-cyan-950/50 -translate-y-0.5"
+                        ? "bg-amber-500/15 border-amber-400/50 shadow-lg shadow-amber-950/50 -translate-y-0.5"
                         : "bg-white/[0.02] border-white/5 hover:bg-white/[0.05] hover:border-white/15"
                     }`}
                   >
@@ -196,16 +196,16 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
                         <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-400/35">
                           {item.displayCode}
                         </span>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400">
+                        <span className="text-xs font-mono uppercase tracking-wider text-slate-400">
                           {item.partTitle}
                         </span>
                         {item.matchedSpeaker && (
-                          <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-rose-500/15 text-rose-300 border border-rose-400/30">
+                          <span className="text-xs font-semibold px-2 py-0.2 rounded-full bg-rose-500/15 text-rose-300 border border-rose-400/30">
                             🗣️ {item.matchedSpeaker}
                           </span>
                         )}
                         {item.matchCategory === "Newspeak" && (
-                          <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
+                          <span className="text-xs font-semibold px-2 py-0.2 rounded-full bg-amber-500/15 text-amber-300 border border-amber-400/30">
                             📡 Newspeak
                           </span>
                         )}
@@ -221,7 +221,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {isSelected && (
-                        <span className="hidden sm:inline-flex items-center gap-1 text-[10px] font-mono font-bold text-amber-300 bg-amber-500/20 px-2 py-1 rounded-lg border border-amber-400/30">
+                        <span className="hidden sm:inline-flex items-center gap-1 text-xs font-mono font-bold text-amber-300 bg-amber-500/20 px-2 py-1 rounded-lg border border-amber-400/30">
                           <CornerDownLeft className="w-3 h-3" />
                           Open
                         </span>
@@ -261,10 +261,10 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
                     >
                       <div className="min-w-0 flex-1 truncate">
                         <div className="flex items-center gap-1.5 mb-0.5">
-                          <span className="font-mono text-[11px] font-bold text-amber-300">
+                          <span className="font-mono text-xs font-bold text-amber-300">
                             {jump.code}
                           </span>
-                          <span className="text-[10px] font-mono text-amber-400/70 px-1 rounded bg-amber-500/10 border border-amber-500/20">
+                          <span className="text-xs font-mono text-amber-400/70 px-1 rounded bg-amber-500/10 border border-amber-500/20">
                             {jump.tag}
                           </span>
                         </div>
@@ -282,7 +282,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
         </div>
 
         {/* Footer Shortcut Bar */}
-        <div className="pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400 shrink-0">
+        <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400 shrink-0">
           <div className="flex items-center gap-3">
             <span>
               <strong className="text-amber-300 font-bold">{query ? results.length : 24}</strong> chapters
@@ -292,7 +292,7 @@ export const JellySpotlightModal: React.FC<JellySpotlightModalProps> = ({
             <span className="hidden sm:inline">•</span>
             <span className="hidden sm:inline">Enter to inspect</span>
           </div>
-          <span className="text-[10px] text-amber-400/80">
+          <span className="text-xs text-amber-400/80">
             George Orwell 1984 Oceania Codex
           </span>
         </div>

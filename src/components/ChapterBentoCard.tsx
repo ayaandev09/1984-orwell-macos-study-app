@@ -95,10 +95,10 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
       dot: "#10b981",
     },
     MODERATE: {
-      bg: "rgba(56, 189, 248, 0.14)",
-      border: "rgba(56, 189, 248, 0.45)",
-      text: "#bae6fd",
-      dot: "#38bdf8",
+      bg: "rgba(217, 119, 6, 0.14)",
+      border: "rgba(217, 119, 6, 0.45)",
+      text: "#fde68a",
+      dot: "#d97706",
     },
     HIGH: {
       bg: "rgba(245, 158, 11, 0.16)",
@@ -204,14 +204,14 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
               className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all duration-200 cursor-pointer active:scale-95 select-none ${
                 isChapterDone
                   ? "bg-emerald-500/25 text-emerald-200 border border-emerald-400/50 shadow-lg shadow-emerald-500/20"
-                  : "bg-white/10 hover:bg-sky-500/25 text-white border border-white/25 hover:border-sky-300/50"
+                  : "bg-white/10 hover:bg-amber-500/25 text-white border border-white/25 hover:border-amber-400/40"
               }`}
             >
               <div className={isChapterDone ? "animate-tick-pop" : ""}>
                 {isChapterDone ? (
                   <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                 ) : (
-                  <Circle className="w-4 h-4 text-sky-300" />
+                  <Circle className="w-4 h-4 text-amber-300" />
                 )}
               </div>
               <span>{isChapterDone ? "Chapter Completed" : "Mark Chapter Read"}</span>
@@ -223,14 +223,14 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white tracking-tight leading-snug mb-1.5 font-display">
           {chapter.title}
         </h1>
-        <p className="text-xs sm:text-sm text-sky-200/85 font-medium mb-4">
+        <p className="text-xs sm:text-sm text-amber-200/85 font-medium mb-4">
           {chapter.subtitle}
         </p>
 
         {/* Setting & Telescreen Metadata Bar */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-4 border-t border-white/10 text-xs">
           <div className="flex items-center gap-2 text-slate-300">
-            <MapPin className="w-4 h-4 text-sky-400 shrink-0" />
+            <MapPin className="w-4 h-4 text-amber-400 shrink-0" />
             <span className="text-slate-400 font-medium">Setting:</span>
             <span className="text-white truncate">{chapter.setting}</span>
           </div>
@@ -292,13 +292,13 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                 {/* Teacher Will Ask */}
                 <div className="p-3 rounded-2xl bg-white/5 border border-white/10 space-y-1.5">
-                  <span className="font-bold text-sky-300 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
+                  <span className="font-bold text-amber-300 flex items-center gap-1.5 uppercase tracking-wider text-xs">
                     <HelpCircle className="w-3.5 h-3.5" />
                     Teacher Will Ask (Raise Hand):
                   </span>
                   <ul className="space-y-1">
                     {matchingCram.teacherDiscussionQuestions.slice(0, 2).map((q, idx) => (
-                      <li key={idx} className="text-slate-300 pl-2.5 border-l-2 border-sky-400/50">
+                      <li key={idx} className="text-slate-300 pl-2.5 border-l-2 border-amber-400/50">
                         {q}
                       </li>
                     ))}
@@ -307,7 +307,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
 
                 {/* Exam Trap */}
                 <div className="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/25 space-y-1">
-                  <span className="font-bold text-rose-300 flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
+                  <span className="font-bold text-rose-300 flex items-center gap-1.5 uppercase tracking-wider text-xs">
                     <AlertTriangle className="w-3.5 h-3.5" />
                     Avoid Exam Trap:
                   </span>
@@ -328,7 +328,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
         </div>
       ) : (
         /* FIRST-TIME READER COMPANION VIEW */
-        <div className="liquid-glass-bento rounded-3xl p-5 border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-sky-500/10 relative overflow-hidden">
+        <div className="liquid-glass-bento rounded-3xl p-5 border border-emerald-500/30 bg-gradient-to-r from-emerald-500/10 via-amber-500/10 to-amber-600/10 relative overflow-hidden">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
               <span className="p-2 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
@@ -339,7 +339,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                   <h3 className="text-sm sm:text-base font-bold text-white tracking-tight">
                     First-Time Reader Companion
                   </h3>
-                  <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
+                  <span className="px-2 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">
                     Guided Reading
                   </span>
                 </div>
@@ -444,7 +444,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                     key={idx}
                     className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed"
                   >
-                    <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 font-mono text-[11px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                    <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                       {idx + 1}
                     </span>
                     <span>{bullet}</span>
@@ -455,7 +455,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
 
             {/* Narrative Prose Summary */}
             {!speedReadMode && (
-              <div className="space-y-3 text-sm sm:text-[15px] text-slate-200/95 leading-relaxed">
+              <div className="space-y-3 text-sm sm:text-base text-slate-200/95 leading-relaxed">
                 {chapter.summary.split("\n\n").map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
@@ -465,8 +465,8 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
 
           {/* Exam Thesis Banner */}
           <div className="mt-5 pt-4 border-t border-white/10">
-            <div className="rounded-2xl p-3.5 bg-gradient-to-r from-sky-500/15 via-indigo-500/15 to-purple-500/15 border border-sky-400/30">
-              <div className="text-[11px] font-bold uppercase tracking-wider text-sky-300 mb-1 flex items-center gap-1.5">
+            <div className="rounded-2xl p-3.5 bg-gradient-to-r from-amber-500/15 via-amber-600/15 to-rose-950/20 border border-amber-400/30">
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-300 mb-1 flex items-center gap-1.5">
                 <GraduationCap className="w-3.5 h-3.5" />
                 Core Analytical Thesis Takeaway
               </div>
@@ -563,7 +563,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
               {chapter.analysis.motifsAndSymbols.map((sym, idx) => (
                 <span
                   key={idx}
-                  className="px-2.5 py-1 rounded-xl text-xs bg-white/[0.06] border border-white/15 text-sky-200"
+                  className="px-2.5 py-1 rounded-xl text-xs bg-white/[0.06] border border-white/15 text-amber-200"
                 >
                   {sym}
                 </span>
@@ -577,7 +577,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
       <div className="liquid-glass-bento rounded-3xl p-5 sm:p-6">
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
           <div className="flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-sky-500/20 border border-sky-400/30 text-sky-300">
+            <span className="p-2 rounded-xl bg-amber-500/20 border border-amber-400/30 text-amber-300">
               <Layers className="w-4 h-4" />
             </span>
             <div>
@@ -606,12 +606,12 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                 className={`rounded-2xl p-4 border transition-all duration-200 cursor-pointer flex flex-col justify-between ${
                   isSubDone
                     ? "bg-emerald-950/20 border-emerald-400/40"
-                    : "bg-white/[0.04] hover:bg-white/[0.07] border-white/12 hover:border-sky-400/40"
+                    : "bg-white/[0.04] hover:bg-white/[0.07] border-white/12 hover:border-amber-400/40"
                 }`}
               >
                 <div>
                   <div className="flex items-start justify-between gap-2 mb-2">
-                    <span className="px-2 py-0.5 rounded-lg text-[11px] font-mono font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/30">
+                    <span className="px-2 py-0.5 rounded-lg text-xs font-mono font-semibold bg-amber-500/20 text-amber-300 border border-amber-400/30">
                       {chapter.displayCode}.{index + 1} • {sub.sceneMarker}
                     </span>
                     <button
@@ -700,7 +700,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
 
           <div className="space-y-3">
             <div className="rounded-2xl p-3.5 bg-black/30 border border-white/10">
-              <div className="text-xs font-bold text-sky-300 mb-1">
+              <div className="text-xs font-bold text-amber-300 mb-1">
                 1. SparkNotes Structural &amp; Character Synthesis
               </div>
               <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
@@ -765,7 +765,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                     className="rounded-2xl p-4 bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/15"
                   >
                     <div className="flex items-start justify-between gap-3 mb-2">
-                      <blockquote className="text-sm sm:text-[15px] font-semibold text-white italic leading-relaxed border-l-2 border-sky-400 pl-3">
+                      <blockquote className="text-sm sm:text-[15px] font-semibold text-white italic leading-relaxed border-l-2 border-amber-400 pl-3">
                         &ldquo;{q.quote}&rdquo;
                       </blockquote>
                       <button
@@ -781,7 +781,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                       </button>
                     </div>
 
-                    <div className="text-[11px] font-mono text-sky-300 mb-2">
+                    <div className="text-xs font-mono text-amber-300 mb-2">
                       — {q.speaker} ({q.context})
                     </div>
 
@@ -796,7 +796,7 @@ export const ChapterBentoCard: React.FC<ChapterBentoCardProps> = React.memo(({
                         return (
                           <span
                             key={tId}
-                            className="px-2 py-0.5 rounded-full text-[10px] font-semibold border"
+                            className="px-2 py-0.5 rounded-full text-xs font-semibold border"
                             style={{
                               backgroundColor: t.badgeBg,
                               borderColor: t.badgeBorder,
