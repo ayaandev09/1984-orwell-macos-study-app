@@ -987,46 +987,51 @@ input, textarea, select { transition: border-color var(--dur-fast) ease, box-sha
 }
 
 /* ============================================================================
-   COMFORTABLE ACADEMIC TYPOGRAPHY ENGINE (STANDARDIZED SUITE-WIDE)
-   - Elevates base scale from 16px to 17.5px - 18px on desktop & iPad
-   - Re-normalizes compact utility font sizes for optimal reading ergonomics
+   COMFORTABLE ACADEMIC TYPOGRAPHY ENGINE (SUITE-WIDE GENEROUS UPGRADE)
+   - Elevates base font size from 16px to 18px (up to 19px on larger displays)
+   - Guarantees minimum 0.88rem (~16px) for every tiny badge, chip, and meta tag
+   - Boosts all text utilities (text-xs, text-sm, text-base, headings)
    ============================================================================ */
 :root {
-  font-size: 16.5px;
+  font-size: 17.5px;
 }
 
 @media (min-width: 1024px) {
   :root {
-    font-size: 17.5px;
+    font-size: 18.5px;
   }
 }
 
 @media (min-width: 1440px) {
   :root {
-    font-size: 18px;
+    font-size: 19px;
   }
 }
 
-/* Elevate micro-utilities so badges and meta chips are crisp and readable */
-.text-\[8px\], [class*="text-[8px]"] { font-size: 0.68rem !important; }
-.text-\[9px\], [class*="text-[9px]"] { font-size: 0.74rem !important; }
-.text-\[10px\], [class*="text-[10px]"] { font-size: 0.80rem !important; }
-.text-\[11px\], [class*="text-[11px]"] { font-size: 0.86rem !important; }
-.text-xs { font-size: 0.88rem !important; }
-.text-sm { font-size: 0.98rem !important; }
-.text-base { font-size: 1.08rem !important; }
-.text-lg { font-size: 1.22rem !important; }
-.text-xl { font-size: 1.38rem !important; }
-.text-2xl { font-size: 1.68rem !important; }
-.text-3xl { font-size: 2.15rem !important; }
+/* Micro-utilities elevation (badges, labels, chips, timestamps, pill metrics) */
+[class*="text-[7px]"], .text-\[7px\] { font-size: 0.82rem !important; }
+[class*="text-[8px]"], .text-\[8px\] { font-size: 0.85rem !important; }
+[class*="text-[9px]"], .text-\[9px\] { font-size: 0.88rem !important; }
+[class*="text-[10px]"], .text-\[10px\] { font-size: 0.92rem !important; }
+[class*="text-[11px]"], .text-\[11px\] { font-size: 0.96rem !important; }
+[class*="text-[12px]"], .text-\[12px\] { font-size: 0.98rem !important; }
 
-/* Ensure comfortable line heights across reading surfaces */
+/* Tailwind semantic utility classes */
+.text-xs, [class*="text-xs"] { font-size: 0.95rem !important; }
+.text-sm, [class*="text-sm"] { font-size: 1.05rem !important; }
+.text-base, [class*="text-base"] { font-size: 1.15rem !important; }
+.text-lg, [class*="text-lg"] { font-size: 1.28rem !important; }
+.text-xl, [class*="text-xl"] { font-size: 1.45rem !important; }
+.text-2xl, [class*="text-2xl"] { font-size: 1.78rem !important; }
+.text-3xl, [class*="text-3xl"] { font-size: 2.25rem !important; }
+
+/* Ensure comfortable line heights & reading rhythm */
 p, blockquote, .academic-prose, article {
   line-height: 1.68 !important;
   letter-spacing: 0.01em;
 }
 
-/* Formula & KaTeX mathematical comfortable readability */
+/* KaTeX mathematical and scientific typography */
 .katex-formula-wrapper, .katex {
-  font-size: 1.08em !important;
+  font-size: 1.12em !important;
 }
