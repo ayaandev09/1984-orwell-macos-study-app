@@ -62,10 +62,10 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
       onClick={handleDismiss}
       className="fixed inset-0 z-[9999] flex flex-col items-center justify-center p-4 select-none overflow-hidden cursor-pointer"
       style={{
-        backgroundColor: "rgba(6, 4, 2, 0.82)",
+        backgroundColor: "rgba(6, 4, 2, 0.72)",
         backdropFilter: "blur(28px) saturate(160%)",
         WebkitBackdropFilter: "blur(28px) saturate(160%)",
-        backgroundImage: `radial-gradient(ellipse at 12% 10%, rgba(217, 119, 6, 0.18) 0%, transparent 48%), radial-gradient(ellipse at 88% 14%, rgba(180, 83, 9, 0.14) 0%, transparent 46%), radial-gradient(ellipse at 50% 92%, rgba(245, 158, 11, 0.12) 0%, transparent 58%), linear-gradient(180deg, rgba(6, 4, 2, 0.88) 0%, rgba(18, 11, 5, 0.76) 52%, rgba(6, 4, 2, 0.90) 100%)`,
+        backgroundImage: `radial-gradient(ellipse at 12% 10%, rgba(217, 119, 6, 0.18) 0%, transparent 48%), radial-gradient(ellipse at 88% 14%, rgba(180, 83, 9, 0.14) 0%, transparent 46%), radial-gradient(ellipse at 50% 92%, rgba(245, 158, 11, 0.12) 0%, transparent 58%), linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(18, 11, 5, 0.20) 50%, rgba(6, 4, 2, 0.40) 100%)`,
       }}
     >
       {/* Center Liquid Glass Frosted Card */}
@@ -73,12 +73,10 @@ export const CinematicStartupIntro: React.FC<CinematicStartupIntroProps> = ({
         className="relative w-full max-w-2xl sm:max-w-3xl rounded-3xl p-6 sm:p-10 flex flex-col items-center justify-center pointer-events-none"
         style={{
           background:
-            "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(24, 14, 5, 0.40) 50%, rgba(6, 4, 2, 0.60) 100%)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid rgba(245, 158, 11, 0.18)",
+            "linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(28, 18, 10, 0.35) 50%, rgba(6, 4, 2, 0.55) 100%)",
+          border: "1px solid rgba(245, 158, 11, 0.20)",
           boxShadow:
-            "0 24px 60px -12px rgba(0, 0, 0, 0.75), inset 0 1px 1px 0 rgba(255, 255, 255, 0.16), inset 0 -1px 1px 0 rgba(245, 158, 11, 0.08)",
+            "0 28px 64px -12px rgba(0, 0, 0, 0.80), inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(245, 158, 11, 0.08)",
         }}
       >
         <div className="w-full h-72 sm:h-80 flex items-center justify-center">
