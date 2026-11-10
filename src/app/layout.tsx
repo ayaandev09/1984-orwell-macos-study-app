@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -25,8 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" data-academic-font="jakarta" data-handwritten-style="newsreader">
+    <html suppressHydrationWarning lang="en" className="dark" data-academic-font="jakarta" data-handwritten-style="newsreader">
       <head>
+        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem("study-app-theme")==="light"){document.documentElement.classList.add("theme-light")}}catch(e){}` }} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -40,6 +42,7 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-[#060402] selection:bg-amber-500/30 selection:text-amber-100">
         {children}
+        <ThemeToggle />
       </body>
     </html>
   );

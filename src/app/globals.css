@@ -1027,3 +1027,58 @@ p, blockquote, .academic-prose, article {
   font-size: 1.04em !important;
   max-width: 100%;
 }
+
+/* ===== Light / dark mode (inversion-based so every view and modal follows) ===== */
+html.theme-light {
+  filter: invert(1) hue-rotate(180deg);
+  background: #fff;
+}
+html.theme-light img,
+html.theme-light video,
+html.theme-light canvas,
+html.theme-light iframe,
+html.theme-light svg image,
+html.theme-light .no-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+html,
+body {
+  transition: background-color 0.3s ease;
+}
+.theme-toggle-fab {
+  position: fixed;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2147483000;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.theme-toggle-track {
+  display: block;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+.theme-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(251, 191, 36, 0.9);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+html.theme-light .theme-toggle-thumb {
+  transform: translateX(24px);
+}
