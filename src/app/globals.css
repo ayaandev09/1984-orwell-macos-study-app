@@ -1082,3 +1082,52 @@ body {
 html.theme-light .theme-toggle-thumb {
   transform: translateX(24px);
 }
+
+
+/* ===== Tinted liquid-glass bento cards (set --tint as "r, g, b") ===== */
+.glass-tint {
+  position: relative;
+  background:
+    radial-gradient(130% 120% at 0% 0%, rgba(var(--tint), 0.28), transparent 60%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(8, 6, 4, 0.72));
+  backdrop-filter: blur(20px) saturate(170%);
+  -webkit-backdrop-filter: blur(20px) saturate(170%);
+  border: 1px solid rgba(var(--tint), 0.38);
+  box-shadow:
+    0 14px 30px -12px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.3s ease;
+}
+.glass-tint:hover {
+  border-color: rgba(var(--tint), 0.7);
+  box-shadow:
+    0 20px 40px -12px rgba(0, 0, 0, 0.8),
+    0 0 36px -8px rgba(var(--tint), 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+.tint-amber { --tint: 245, 158, 11; }
+.tint-rose { --tint: 244, 63, 94; }
+.tint-emerald { --tint: 16, 185, 129; }
+.tint-sky { --tint: 14, 165, 233; }
+.tint-violet { --tint: 139, 92, 246; }
+.tint-orange { --tint: 249, 115, 22; }
+.tint-cyan { --tint: 6, 182, 212; }
+.tint-indigo { --tint: 99, 102, 241; }
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-tint { transition: none; }
+}
+
+/* ===== Liquid glass floating bar ===== */
+.liquid-glass-bar {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05)),
+    rgba(20, 12, 6, 0.45);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 12px 32px -10px rgba(0, 0, 0, 0.65),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}

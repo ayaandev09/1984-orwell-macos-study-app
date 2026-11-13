@@ -5,7 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import { ALL_CHAPTERS, BOOK_PARTS, ThemeId } from "@/data";
 import { pushSyncToServer, SyncPayload } from "@/lib/syncService";
 
-export type ViewMode = "focus" | "stream" | "matrix" | "lexicon" | "revision";
+export type ViewMode = "home" | "focus" | "stream" | "matrix" | "lexicon" | "revision";
 export type DeviceMode = "mac" | "iphone16e";
 export type StudyGoal = "learn" | "revise";
 export type RevisionTab = "cram" | "flashcards" | "quiz" | "essays" | "cloze";
@@ -98,7 +98,7 @@ export const useStudyStore = create<StudyStoreState>()(
       activeChapterId: "p1-c1",
       activePartFilter: "all",
       activeThemeFilter: "all",
-      viewMode: "focus",
+      viewMode: "home",
       deviceMode: "mac",
       studyGoal: "revise",
       revisionTab: "cram",
@@ -111,7 +111,7 @@ export const useStudyStore = create<StudyStoreState>()(
       spoilerMaskActive: true,
       diagnosticsActive: true,
       syncModalOpen: false,
-      isInspectorOpen: true,
+      isInspectorOpen: false,
       isExamSprintActive: false,
       isSpotlightOpen: false,
       telescreenMode: false,

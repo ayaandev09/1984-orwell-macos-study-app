@@ -5,7 +5,9 @@ import { AnimatePresence } from "framer-motion";
 import { AmbientAuroraCanvas } from "@/components/AmbientAuroraCanvas";
 import { BOOK_PARTS, ALL_CHAPTERS, THEMES_TAXONOMY } from "@/data";
 import { useStudyStore } from "@/store/useStudyStore";
-import { FloatingSidebar } from "@/components/FloatingSidebar";
+import { SideNav } from "@/components/SideNav";
+import { SceneSwitcher } from "@/components/SceneSwitcher";
+import { HomeDashboard } from "@/components/HomeDashboard";
 import { TopCommandBar } from "@/components/TopCommandBar";
 import { WidgetBridge } from "@/components/WidgetBridge";
 import { ChapterBentoCard } from "@/components/ChapterBentoCard";
@@ -233,7 +235,7 @@ export default function Orwell1984LiquidShellPage() {
         {/* ==================== MAIN SHELL CONTAINER ==================== */}
       <div className="w-full max-w-[1720px] mx-auto p-2.5 sm:p-4 flex gap-4 xl:gap-5 items-start mac-dashboard-shell relative z-10">
         {/* Left Floating Sidebar */}
-        <FloatingSidebar isMobileSheet={false} />
+        <SideNav />
 
         {/* Right Main Content Workspace */}
         <main
@@ -245,7 +247,7 @@ export default function Orwell1984LiquidShellPage() {
           <TopCommandBar onOpenWalkthrough={() => setIsWalkthroughOpen(true)} />
 
           {/* Mini Homepage & Live Widget Telemetry Hub */}
-          <StudyMiniHomepage />
+          
 
           {/* ==================== BUTTER-SMOOTH VIEW CONTENT WORKSPACE ==================== */}
           <div key={viewMode} className="liquid-view-enter">
