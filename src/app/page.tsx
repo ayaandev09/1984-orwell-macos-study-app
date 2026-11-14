@@ -251,9 +251,12 @@ export default function Orwell1984LiquidShellPage() {
 
           {/* ==================== BUTTER-SMOOTH VIEW CONTENT WORKSPACE ==================== */}
           <div key={viewMode} className="liquid-view-enter">
+            {viewMode === "home" && <HomeDashboard />}
+
             {/* ==================== VIEW 1: FOCUS CHAPTER BENTO ==================== */}
             {viewMode === "focus" && (
               <div className="space-y-5">
+                <SceneSwitcher />
                 {/* Book Part Context Banner - 100% Full-Width Bulletproof Native Card */}
                 <div className="liquid-glass-bento rounded-3xl p-5 mb-5 border border-white/15 shadow-xl bg-gradient-to-br from-white/[0.07] to-white/[0.02] backdrop-blur-xl space-y-3">
                   <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-3">

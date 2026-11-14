@@ -74,14 +74,14 @@ export function HomeDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
         {TILES.map((t, i) => (
           <motion.button
             key={t.id}
             onClick={() => setViewMode(t.id)}
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 + i * 0.05, type: "spring", stiffness: 260, damping: 24 }}
+            transition={{ delay: 0.05 + i * 0.05, type: "spring", stiffness: 260, damping: 244 }}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
             className={`glass-tint ${t.tint} ${t.span} text-left rounded-3xl p-5 min-h-[130px] flex flex-col justify-between cursor-pointer`}

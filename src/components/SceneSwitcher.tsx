@@ -20,7 +20,7 @@ export function SceneSwitcher() {
             key={p.id}
             onClick={() => setPartId(p.id)}
             className={`px-3 py-1.5 rounded-xl text-xs font-semibold cursor-pointer transition-colors ${
-              p.id === partId ? "bg-amber-500 text-slate-950" : "bg-white/8 text-slate-300 hover:bg-white/15"
+              p.id === partId ? "bg-amber-500 text-slate-950 font-bold" : "bg-white/8 text-slate-300 hover:bg-white/15"
             }`}
           >
             Part {p.romanNumeral}
